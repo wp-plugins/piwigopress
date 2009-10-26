@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: piwigopress\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-24 15:49+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: VDigital <vpiwigo@gmail.com>\n"
+"Language-Team: Laurent Duretz <laurent@duretz.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplural=2; plural(n !=1)\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_c\n"
+"X-Poedit-Basepath: C:\\wamp\\www\\svn-org\\extensions\n"
+"X-Poedit-SearchPath-0: piwigopress\n"
+
+#: piwigopress/piwigopress.php:35
+msgid "Adds a thumbnail and its link (to the picture) inside your blog sidebar."
+msgstr "Ajouter une miniature et son lien (vers l'image) dans la barre latérale du blog"
+
+#: piwigopress/PiwigoPress_code.php:64
+msgid "Pictures categories"
+msgstr "Catégorie d'images"
+
+#: piwigopress/PiwigoPress_code.php:77
+#: piwigopress/PiwigoPress_options.php:76
+msgid "Most visited"
+msgstr "Plus populaires"
+
+#: piwigopress/PiwigoPress_code.php:80
+#: piwigopress/PiwigoPress_options.php:80
+msgid "Best rated"
+msgstr "Mieux notées"
+
+#: piwigopress/PiwigoPress_code.php:83
+#: piwigopress/PiwigoPress_options.php:84
+msgid "Most commented"
+msgstr "Plus commentées"
+
+#: piwigopress/PiwigoPress_code.php:86
+#: piwigopress/PiwigoPress_options.php:88
+msgid "Random"
+msgstr "Aléatoire"
+
+#: piwigopress/PiwigoPress_code.php:89
+#: piwigopress/PiwigoPress_options.php:92
+msgid "Recent pics"
+msgstr "Images récentes"
+
+#: piwigopress/PiwigoPress_code.php:92
+#: piwigopress/PiwigoPress_options.php:96
+msgid "Calendar"
+msgstr "Calendrier"
+
+#: piwigopress/PiwigoPress_code.php:95
+#: piwigopress/PiwigoPress_options.php:100
+msgid "Tags"
+msgstr "Tags"
+
+#: piwigopress/PiwigoPress_code.php:98
+#: piwigopress/PiwigoPress_options.php:104
+msgid "Comments"
+msgstr "Commentaires"
+
+#: piwigopress/PiwigoPress_options.php:6
+msgid "Random picture"
+msgstr "Images aléatoires"
+
+#: piwigopress/PiwigoPress_options.php:33
+msgid "Title"
+msgstr "Titre"
+
+#: piwigopress/PiwigoPress_options.php:37
+msgid "Get thumbnails"
+msgstr "Obtenir les miniatures"
+
+#: piwigopress/PiwigoPress_options.php:41
+msgid "<strong>Local</strong> directory (if local)"
+msgstr "Répertoire <strong>local</strong> (si local)"
+
+#: piwigopress/PiwigoPress_options.php:45
+msgid "(or) <strong>External</strong> gallery URL"
+msgstr "(ou) URL de la galerie <strong>externe</strong>"
+
+#: piwigopress/PiwigoPress_options.php:49
+msgid "Number of pictures (0=none)"
+msgstr "Nombre d'images (0=aucune)"
+
+#: piwigopress/PiwigoPress_options.php:53
+msgid "Optional parameters"
+msgstr "Paramètres optionnels"
+
+#: piwigopress/PiwigoPress_options.php:55
+msgid "Category id (0=all)"
+msgstr "Id de la catégorie (0=toutes)"
+
+#: piwigopress/PiwigoPress_options.php:59
+msgid "Since X months (0=all)"
+msgstr "Depuis X mois (0=tous)"
+
+#: piwigopress/PiwigoPress_options.php:63
+msgid "CSS DIV class"
+msgstr "Classe CSS pour DIV"
+
+#: piwigopress/PiwigoPress_options.php:67
+msgid "CSS IMG class"
+msgstr "Classe CSS pour IMG"
+
+#: piwigopress/PiwigoPress_options.php:72
+msgid "Categories menu"
+msgstr "Menu des catégories"
+
