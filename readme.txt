@@ -4,7 +4,7 @@ Donate link: http://www.vdigital.org/sharing/
 Tags: galleries, public pictures, randomize
 Requires at least: 2.8.4
 Tested up to: 2.8.5
-Stable tag: trunk
+Stable tag: 1.04
 
 This widget integrates in your blog sidebars some randomized thumbnails and some links from your or any open API Piwigo gallery.
 
