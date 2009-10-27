@@ -4,30 +4,33 @@ Donate link: http://www.vdigital.org/sharing/
 Tags: galleries, public pictures, randomize
 Requires at least: 2.8.4
 Tested up to: 2.8.5
-Stable tag: 1.04
+Stable tag: 1.0.4
 
 This widget integrates in your blog sidebars some randomized thumbnails and some links from your or any open API Piwigo gallery.
 
 == Description ==
 
-PiwigoPress is a WordPress 2.8 widget, it links public pictures in your Piwigo gallery (Piwigo). 
-In other words, it's a WordPress Sidebar Widget with some available public pictures in your Piwigo gallery as a prereq.
+PiwigoPress is a WordPress 2.8 Sidebar Widget that links to the pictures of a Piwigo gallery. 
+Thus, a Piwigo gallery with several public pictures in it is a prerequisite to make it work. 
+But even if you don't have one yet, you can nonetheless give this plugin a try by using the 
+Official Piwigo [demonstration gallery][] before
+setting up your own gallery.
 
-If you don't have a Piwigo Gallery already, you can try this plugin based on the Official Piwigo demo: http://piwigo.org/demo
+PiwigoPress can display several links to the Piwigo gallery in the sidebars of your WordPress 
+blog, all of them being optional: a random thumbnail linking to the corresponding picture page, 
+menus directing to all categories defined as public in the gallery, several additional links 
+to most recent, most viewed, most commented pictures, and more.
 
-Once convinced, you go to the Piwigo download page http://piwigo.org/downloads
-(All links on this page are what you could need).
+When you've finished testing and want to create you own gallery, go to the Piwigo [download page][], 
+where you'll find all the links you might need.
 
-Try NetInstall if it fails switch to the package download and follow the full install procedure.
-Try pLoader but in all case, in your Piwigo gallery administration pages, you will find the Instructions link.
+Try "NetInstall" first. If it fails, switch to the "Package" download and follow the full 
+installation procedure. Try « pLoader » but in any case, you will find an « Instructions » link 
+in your Piwigo gallery administration page.
 
-Once your gallery online, PiwigoPress will offer to your blog in its sidebars:
-- Random public thumbnails with a link to the related picture (medium size) in your gallery,
-- Menu to all public categories of pictures,
-- Several links to recent, most viewed, most commented pictures and more.
-
-All of these are PiwigoPress options.
-
+A Widget signed and supported by the Piwigo Team.
+[demonstration gallery]: http://piwigo.org/demo  "The demonstration gallery"
+[download page]: http://piwigo.org/downloads  "Piwigo download page"
 
 == Installation ==
 
@@ -53,8 +56,14 @@ CSS IMG class: For your blog design
 Categories menu: Includes all links related to Piwigo categories
 
 All below selectable option are special Piwigo links to include:
-Most visited - Best rated - Most commented - Random
-Recent pics - Calendar - Keywords - Comments 
+	* Most visited 
+	* Best rated 
+	* Most commented (need a plugin in the client gallery)
+	* Random
+	* Recent pics 
+	* Calendar 
+	* Keywords 
+	* Comments 
 
 == Frequently Asked Questions ==
 
@@ -66,14 +75,14 @@ Anwsers will come later.
 
 == Screenshots ==
 
-1. Sshot_result.png in your sidebar
-2. Sshot_demo.png Widget parameters for the demo gallery
-3. Sshot_local.png Widget parameters for your local gallery
+1. Widget parameters for the demo gallery 
+2. Expected result in your sidebar
+3. Widget parameters for your gallery (on the same domain)
 
 == Changelog ==
 
 = 1.04 = 
-* Alternate pwg_get_contents (file_get_contents, fsockopen, ...)
+* Alternate pwg_get_contents (file\_get\_contents, fsockopen, ...)
 * cURL is coming
 
 = 1.03 = 
@@ -87,7 +96,7 @@ Anwsers will come later.
 
 = 1.01 = 
 * I18n version (French, Spanish,...)
-  Link bug with some theme... Solved.
+* Link bug with some theme... Solved.
 
 = 1.0 =
 * First version.
