@@ -56,14 +56,14 @@ CSS IMG class: For your blog design
 Categories menu: Includes all links related to Piwigo categories
 
 All below selectable option are special Piwigo links to include:
-	* Most visited 
-	* Best rated 
-	* Most commented (need a plugin in the client gallery)
-	* Random
-	* Recent pics 
-	* Calendar 
-	* Keywords 
-	* Comments 
+* Most visited 
+* Best rated 
+* Most commented (need a plugin in the client gallery)
+* Random
+* Recent pics 
+* Calendar 
+* Keywords 
+* Comments 
 
 == Frequently Asked Questions ==
 
