@@ -3,14 +3,14 @@ Contributors: vpiwigo
 Donate link: http://www.vdigital.org/sharing/
 Tags: galleries, public pictures, randomize
 Requires at least: 2.8.4
-Tested up to: 2.8.5
-Stable tag: 1.0.4
+Tested up to: 3.4.1
+Stable tag: 2.0.0
 
 This widget integrates in your blog sidebars some randomized thumbnails and some links from your or any open API Piwigo gallery.
 
 == Description ==
 
-PiwigoPress is a WordPress 2.8 Sidebar Widget that links to the pictures of a Piwigo gallery. 
+PiwigoPress is a WordPress Sidebar Widget that links to the pictures of a Piwigo gallery. 
 Thus, a Piwigo gallery with several public pictures in it is a prerequisite to make it work. 
 But even if you don't have one yet, you can nonetheless give this plugin a try by using the 
 Official Piwigo [demonstration gallery][] before
@@ -28,9 +28,8 @@ Try "NetInstall" first. If it fails, switch to the "Package" download and follow
 installation procedure. Try « pLoader » but in any case, you will find an « Instructions » link 
 in your Piwigo gallery administration page.
 
-A Widget signed and supported by the Piwigo Team.
+A Widget signed and supported by a Former Piwigo Team member.
 [demonstration gallery]: http://piwigo.org/demo  "The demonstration gallery"
-[download page]: http://piwigo.org/downloads  "Piwigo download page"
 
 == Installation ==
 
@@ -67,19 +66,39 @@ All below selectable option are special Piwigo links to include:
 
 == Frequently Asked Questions ==
 
-Currently, none.
+How can I get any thumbnails ?
+- Just have the URL without the /index.php? on the end.
+- Just have recent pictures in the gallery.
+- Change Since X months (0=all) from 12 to 0
+- Set "Number of pictures (0=none)" to 1 or 2  
+- If it doesn't work, see the provided screenshots...
+
+How can I get other sizes ? I only have thumbs and squares.
+- In your gallery admin pages, find Configuration 
+and select: Options > Photo sizes > Multiple size > show details
 
 = A question that someone might have =
 
-Anwsers will come later.
+How can I get squared thumbnails ?
+- maybe you should try to upgrade your gallery to Piwigo 2.4.x or above.
+- See below screenshots
 
 == Screenshots ==
 
 1. Widget parameters for the demo gallery 
 2. Expected result in your sidebar
 3. Widget parameters for your gallery (on the same domain)
+4. Piwigo admin Photo sizes (from a Gallery website)
 
 == Changelog ==
+
+= 2.00 = 
+* Support of WordPress from 2.8.0 to 3.4.1 (and probably above)
+* Support of Piwigo 2.4.x (and probably above)
+* Support of Piwigo 2.0.x - 2.3.x assumed
+* cURL access support (3rd way to solve webservice call issues)
+* CSS DIV class: img-shadow and/or img-show-desc are now provided
+* Orientation filtering
 
 = 1.04 = 
 * Alternate pwg_get_contents (file\_get\_contents, fsockopen, ...)

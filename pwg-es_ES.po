@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piwigopress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-24 20:41+0100\n"
+"POT-Creation-Date: 2012-07-11 06:55+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: VDigital <vpiwigo@gmail.com>\n"
+"Last-Translator: vpiwigo <vpiwigo@gmail.com>\n"
 "Language-Team: Laurent Duretz <laurent@duretz.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,102 +14,118 @@ msgstr ""
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e;_c\n"
-"X-Poedit-Basepath: C:\\wamp\\www\\svn-org\\extensions\n"
-"X-Poedit-SearchPath-0: piwigopress\n"
+"X-Poedit-Basepath: C:\\wamp\\www\\PiwigoPress\n"
+"X-Poedit-SearchPath-0: trunk\n"
 
-#: piwigopress/piwigopress.php:35
+#: trunk/piwigopress.php:35
 msgid "Adds a thumbnail and its link (to the picture) inside your blog sidebar."
 msgstr "Añadir una miniatura y su enlaces (hacia la imagen) en la barra lateral del blog"
 
-#: piwigopress/PiwigoPress_code.php:64
+#: trunk/PiwigoPress_code.php:78
 msgid "Pictures categories"
 msgstr "Categoría de imágenes"
 
-#: piwigopress/PiwigoPress_code.php:77
-#: piwigopress/PiwigoPress_options.php:76
+#: trunk/PiwigoPress_code.php:91
+#: trunk/PiwigoPress_options.php:100
 msgid "Most visited"
 msgstr "Más populares"
 
-#: piwigopress/PiwigoPress_code.php:80
-#: piwigopress/PiwigoPress_options.php:80
+#: trunk/PiwigoPress_code.php:94
+#: trunk/PiwigoPress_options.php:103
 msgid "Best rated"
 msgstr "Mejor anotadas"
 
-#: piwigopress/PiwigoPress_code.php:83
-#: piwigopress/PiwigoPress_options.php:84
+#: trunk/PiwigoPress_code.php:97
+#: trunk/PiwigoPress_options.php:106
 msgid "Most commented"
 msgstr "Más comentadas"
 
-#: piwigopress/PiwigoPress_code.php:86
-#: piwigopress/PiwigoPress_options.php:88
+#: trunk/PiwigoPress_code.php:100
+#: trunk/PiwigoPress_options.php:109
 msgid "Random"
 msgstr "Aleatorio"
 
-#: piwigopress/PiwigoPress_code.php:89
-#: piwigopress/PiwigoPress_options.php:92
+#: trunk/PiwigoPress_code.php:103
+#: trunk/PiwigoPress_options.php:112
 msgid "Recent pics"
 msgstr "Imágenes recientes"
 
-#: piwigopress/PiwigoPress_code.php:92
-#: piwigopress/PiwigoPress_options.php:96
+#: trunk/PiwigoPress_code.php:106
+#: trunk/PiwigoPress_options.php:115
 msgid "Calendar"
 msgstr "Calendario"
 
-#: piwigopress/PiwigoPress_code.php:95
-#: piwigopress/PiwigoPress_options.php:100
+#: trunk/PiwigoPress_code.php:109
+#: trunk/PiwigoPress_options.php:118
 msgid "Tags"
 msgstr "Tags"
 
-#: piwigopress/PiwigoPress_code.php:98
-#: piwigopress/PiwigoPress_options.php:104
+#: trunk/PiwigoPress_code.php:112
+#: trunk/PiwigoPress_options.php:121
 msgid "Comments"
 msgstr "Comentarios"
 
-#: piwigopress/PiwigoPress_options.php:6
+#: trunk/PiwigoPress_options.php:6
 msgid "Random picture"
 msgstr "Imágenes aleatorias"
 
-#: piwigopress/PiwigoPress_options.php:33
+#: trunk/PiwigoPress_options.php:34
 msgid "Title"
 msgstr "Título"
 
-#: piwigopress/PiwigoPress_options.php:37
-msgid "Get thumbnails"
-msgstr "Obtener las miniaturas"
+#: trunk/PiwigoPress_options.php:42
+msgid "Square"
+msgstr "Cuadrado"
 
-#: piwigopress/PiwigoPress_options.php:41
+#: trunk/PiwigoPress_options.php:45
+msgid "Thumbnail"
+msgstr "Diapositiva"
+
+#: trunk/PiwigoPress_options.php:48
+msgid "XXS - tiny"
+msgstr "XXS - diminuto"
+
+#: trunk/PiwigoPress_options.php:51
+msgid "XS - extra small"
+msgstr "XS - extrapequeño"
+
+#: trunk/PiwigoPress_options.php:54
+msgid "S - small"
+msgstr "S - pequeño "
+
+#: trunk/PiwigoPress_options.php:66
 msgid "<strong>Local</strong> directory (if local)"
 msgstr "Repertorio <strong>local</strong> (tan local)"
 
-#: piwigopress/PiwigoPress_options.php:45
+#: trunk/PiwigoPress_options.php:70
 msgid "(or) <strong>External</strong> gallery URL"
 msgstr "(o) URL de la galería <strong>externa</strong>"
 
-#: piwigopress/PiwigoPress_options.php:49
+#: trunk/PiwigoPress_options.php:74
 msgid "Number of pictures (0=none)"
 msgstr "Número de imágenes (0=ninguno)"
 
-#: piwigopress/PiwigoPress_options.php:53
+#: trunk/PiwigoPress_options.php:78
 msgid "Optional parameters"
 msgstr "Parámetros opcionales"
 
-#: piwigopress/PiwigoPress_options.php:55
+#: trunk/PiwigoPress_options.php:80
 msgid "Category id (0=all)"
 msgstr "Id de la categoría (0=todas)"
 
-#: piwigopress/PiwigoPress_options.php:59
+#: trunk/PiwigoPress_options.php:84
 msgid "Since X months (0=all)"
 msgstr "Después X mes (0=todos)"
 
-#: piwigopress/PiwigoPress_options.php:63
+#: trunk/PiwigoPress_options.php:88
 msgid "CSS DIV class"
 msgstr "Clasifica a CSS para DIV"
 
-#: piwigopress/PiwigoPress_options.php:67
+#: trunk/PiwigoPress_options.php:92
 msgid "CSS IMG class"
 msgstr "Clasifica a CSS para IMG"
 
-#: piwigopress/PiwigoPress_options.php:72
+#: trunk/PiwigoPress_options.php:97
 msgid "Categories menu"
 msgstr "Menú de las categorías"
 

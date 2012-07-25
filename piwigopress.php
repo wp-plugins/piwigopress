@@ -8,7 +8,7 @@ Author: vpiwigo ( for The Piwigo Team )
 Author URI: http://www.vdigital.org/sharing/
 */
 if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo */
-/*  Copyright 2009  VDigital  (email : vpiwigo[at]gmail[dot]com)
+/*  Copyright 2009-2012  VDigital  (email : vpiwigo[at]gmail[dot]com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo 
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if (!defined('PWGP_NAME')) define('PWGP_NAME','PiwigoPress');
-
+if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.0.0');
 load_plugin_textdomain('pwg', 'wp-content/plugins/piwigopress', 'piwigopress' );
 
 class PiwigoPress extends WP_Widget
@@ -43,7 +43,9 @@ class PiwigoPress extends WP_Widget
 	function update($new_gallery, $old_gallery){
 		$gallery = $old_gallery;
 		$gallery['title'] = strip_tags(stripslashes($new_gallery['title']));
-		$gallery['thumbnail'] = (strip_tags(stripslashes($new_gallery['thumbnail'])) == 'true') ? 'true':'false';
+		$gallery['thumbnail'] = (bool) $new_gallery['thumbnail'];
+		$gallery['thumbnail_size'] = strip_tags(stripslashes($new_gallery['thumbnail_size']));
+		$gallery['format'] = strip_tags(stripslashes($new_gallery['format']));
 		$gallery['piwigo'] = strip_tags(stripslashes($new_gallery['piwigo']));
 		$gallery['external'] = strip_tags(stripslashes($new_gallery['external']));
 		$gallery['number'] = intval(strip_tags(stripslashes($new_gallery['number'])));
@@ -68,9 +70,31 @@ class PiwigoPress extends WP_Widget
 	}
 }
 
-// Register
+// Register 
 function PiwigoPress_Init() {
 			register_widget('PiwigoPress');
 }
 add_action('widgets_init', PWGP_NAME . '_Init');
+
+// Style allocation
+function PiwigoPress_load_in_head() {
+    /* CSS */
+	// wp_register_style( 'piwigopress_c', WP_PLUGIN_URL. '/piwigopress/css/piwigopress.css', array(), PWGP_VERSION );
+	// wp_enqueue_style( 'piwigopress_c'); // doesn't include the additional style sheet inside the head tag section
+	if (defined('PWGP_CSS_FILE')) return; // Avoid several links to CSS in case of several usage of PiwigoPress... 
+	define('PWGP_CSS_FILE','');
+	echo '<link media="all" type="text/css" href="' . 
+		WP_PLUGIN_URL . '/piwigopress/css/piwigopress.css?ver=2.0.0" id="piwigopress_c-css" rel="stylesheet">'; // that's fine
+}
+add_action('wp_head',  PWGP_NAME . '_load_in_head');
+
+// Script to be used
+function PiwigoPress_load_in_footer() {
+	/* Scripts */
+	wp_register_script( 'piwigopress_s', WP_PLUGIN_URL . '/piwigopress/js/piwigopress.js', array('jquery'), PWGP_VERSION );
+	wp_enqueue_script( 'jquery'); // include it even if it's done
+	wp_enqueue_script( 'piwigopress_s' );
+}
+add_action('wp_footer',  PWGP_NAME . '_load_in_footer');
+
 ?>

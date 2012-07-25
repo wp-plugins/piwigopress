@@ -13,7 +13,10 @@ $piwigo_url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $piwigo ;
 if (!empty($gallery['external'])) $piwigo_url = $gallery['external'];
 if (substr($piwigo_url,-1)!='/') $piwigo_url .= '/';
 
-$thumbnail = empty($gallery['thumbnail']) ? '' : $gallery['thumbnail'];
+$thumbnail = empty($gallery['thumbnail']) ? true : (bool) $gallery['thumbnail'];
+
+$thumbnail_size = empty($gallery['thumbnail_size']) ? 'sq' : $gallery['thumbnail_size'];
+$format = empty($gallery['format']) ? 'any' : $gallery['format'];
 
 $options = '';
 $number = empty($gallery['number']) ? 1 : intval($gallery['number']);
@@ -23,8 +26,10 @@ $from = empty($gallery['from']) ? '12' : intval($gallery['from']);
 $r = (array) $wpdb->get_results('SELECT date_sub( date( now( ) ) , INTERVAL ' . $from . ' MONTH ) as begin');
 $from = $r[0]->begin;
 if (!empty($gallery['from'])) $options .= '&f_min_date_created=' . $from;
+if  ($gallery['format']=='portrait') $options .= '&f_max_ratio=0.99';
+if  ($gallery['format']=='landscape') $options .= '&f_min_ratio=1.01';
 
-$PiwigoPress_divclass = empty($gallery['divclass']) ? '' : (' class="' . $gallery['divclass'] .'"');
+$PiwigoPress_divclass = empty($gallery['divclass']) ? ' class="PWGP_widget"' : (' class="' . $gallery['divclass'] .' PWGP_widget"');
 $PiwigoPress_class = empty($gallery['class']) ? '' : (' class="' . $gallery['class'] .'"');
 $mbcategories = empty($gallery['mbcategories']) ? '' : $gallery['mbcategories'];
 $most_visited = empty($gallery['most_visited']) ? '' : $gallery['most_visited'];
@@ -40,7 +45,7 @@ echo $before_widget;
 echo $title;
 if (!function_exists('pwg_get_contents')) include 'PiwigoPress_get.php';
 
-if ($thumbnail == 'true') {
+if ($thumbnail) {
 	// Make the Piwigo link
 	$response = pwg_get_contents( $piwigo_url 
 			. 'ws.php?method=pwg.categories.getImages&format=php'
@@ -49,10 +54,28 @@ if ($thumbnail == 'true') {
 	if ($thumbc["stat"] == 'ok') {
 		$pictures = $thumbc["result"]["images"]["_content"];
 		foreach ($pictures as $picture) {
+			if (isset($picture['derivatives']['square']['url'])) {
+				$picture['tn_url'] = $picture['derivatives']['thumb']['url'] ;
+				if ($thumbnail_size == 'sm') $picture['tn_url'] = $picture['derivatives']['small']['url'] ;
+				if ($thumbnail_size == 'xs') $picture['tn_url'] = $picture['derivatives']['xsmall']['url'] ;
+				if ($thumbnail_size == '2s') $picture['tn_url'] = $picture['derivatives']['2small']['url'] ;
+				if ($thumbnail_size == 'sq') $picture['tn_url'] = $picture['derivatives']['square']['url'] ;
+			}
 			echo '<div' . $PiwigoPress_divclass . '><a title="' . htmlspecialchars($picture['name']) . '" href="' 
-				. $piwigo_url . 'picture.php?/' . $picture['id'] . '"><img '
-				. $PiwigoPress_class . ' src="' . $picture['tn_url'] . '" alt="" /></a></div>';
-		}
+				. $piwigo_url . 'picture.php?/' . $picture['id'] . '" target="_blank"><img '
+				. $PiwigoPress_class . ' src="' . $picture['tn_url'] . '" alt=""/>';
+				
+			if (isset( $picture['comment'] )) { 
+				$picture['comment'] = stripslashes(htmlspecialchars(strip_tags($picture['comment'])));
+				$box_height = (24 * (int)(strlen($picture['comment'])/45))+32; 
+				// estimated height of the box in case of description to avoid some vertical scrollbar inside the textarea
+				echo '<textarea style="height: ' . $box_height . 'px;">' . $picture['comment'] . '</textarea>'; 
+			}
+			echo '</a>
+			<a class="img_selector" name="' . $picture['element_url'] . '" rel="nofollow" href="javascript:void(0);" title="' 
+			. $picture['width'] .'x' . $picture['height'] .'"></a>
+			</div>';
+		} 
 	}
 }
 
@@ -102,7 +125,7 @@ if ($comments == 'true')
 if ($most_visited == 'true' or $best_rated == 'true' or 
     $most_commented == 'true' or $random == 'true' or $recent_pics == 'true' or 
     $calendar == 'true' or $tags == 'true' or $comments == 'true') echo '</ul>';
-
+	
 echo $after_widget;
 
 ?>
