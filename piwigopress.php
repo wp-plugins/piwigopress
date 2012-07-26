@@ -2,8 +2,8 @@
 /*
 Plugin Name: PiwigoPress
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=316
-Description: PiwigoPress is a WordPress 2.8 widget, it links a public picture in your Piwigo gallery (<a href="http://piwigo.org/">Piwigo</a>). In other words, it's a WordPress Sidebar Widget with some available public pictures in your Piwigo gallery as a prereq.
-Version: 1.04
+Description: PiwigoPress is a WordPress widget, linking your Piwigo gallery (<a href="http://piwigo.org/">Piwigo</a>) to your Wordpress blog. Required some public pictures in your Piwigo gallery.
+Version: 2.00
 Author: vpiwigo ( for The Piwigo Team )
 Author URI: http://www.vdigital.org/sharing/
 */

@@ -41,18 +41,19 @@ How to install PiwigoPress and get it working.
 
 Explanation of Plugin data fields.
 
-Title: To use in the sidebar
-Get thumbnails: Embed thumbnails or ignore (Another option will come later)
-Local directory (if local): Piwigo installation directory (on the same website)
-(or) External gallery URL: URL to the gallery (if not local)
-Number of pictures (0=none): Number of thumbnails to get
+* Title: To use in the sidebar
+* Square, Thumbnail, XXS - tiny,... : see you Piwigo configuration [Photo sizes] admin page
+* Orientation criteria : Any, portrait, landscape
+* Local directory (if local): Piwigo installation directory (on the same website)
+* (or) External gallery URL: URL to the gallery (if not local)
+* Number of pictures (0=none): Number of thumbnails to get
 
 Optional parameters
-Category id (0=all): Pictures from a specific Piwigo category or from all
-Since X months (0=all): Age of posted picture
-CSS DIV class: For your blog design
-CSS IMG class: For your blog design
-Categories menu: Includes all links related to Piwigo categories
+* Category id (0=all): Pictures from a specific Piwigo category or from all
+* Since X months (0=all): Age of posted picture
+* CSS DIV class: For your blog design
+* CSS IMG class: For your blog design
+* Categories menu: Includes all links related to Piwigo categories
 
 All below selectable option are special Piwigo links to include:
 * Most visited 
@@ -67,21 +68,21 @@ All below selectable option are special Piwigo links to include:
 == Frequently Asked Questions ==
 
 How can I get any thumbnails ?
-- Just have the URL without the /index.php? on the end.
-- Just have recent pictures in the gallery.
-- Change Since X months (0=all) from 12 to 0
-- Set "Number of pictures (0=none)" to 1 or 2  
-- If it doesn't work, see the provided screenshots...
+* Just have the URL without the /index.php? on the end.
+* Just have recent pictures in the gallery.
+* Change Since X months (0=all) from 12 to 0
+* Set "Number of pictures (0=none)" to 1 or 2  
+* If it doesn't work, see the provided screenshots...
 
 How can I get other sizes ? I only have thumbs and squares.
-- In your gallery admin pages, find Configuration 
+* In your gallery admin pages, find Configuration 
 and select: Options > Photo sizes > Multiple size > show details
 
 = A question that someone might have =
 
 How can I get squared thumbnails ?
-- maybe you should try to upgrade your gallery to Piwigo 2.4.x or above.
-- See below screenshots
+* maybe you should try to upgrade your gallery to Piwigo 2.4.x or above.
+* See creenshots
 
 == Screenshots ==
 
