@@ -1,7 +1,7 @@
 .img-shadow img {
     border: 1px solid;
 	box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
-    margin: 0 0 12px -6px;
+    margin: 0 0 12px 0;
     padding: 6px;
 }
 .PWGP_widget a {
@@ -11,7 +11,7 @@
 .PWGP_widget a:hover {
     z-index: 50;
 }
-.PWGP_widget textarea {
+.PWGP_widget textarea, .img-show-desc textarea {
 	display: none;
 }
 .img-show-desc a textarea {
@@ -38,10 +38,41 @@
     box-shadow: 12px 12px 6px rgba(255, 255, 255, 0.8);
     display: block !important;
     height: 2px;
-    left: -20px;
+    left: -14px;
     padding: 12px;
     text-decoration: none;
     top: -32px;
     width: 2px;
     z-index: 1;
+}
+.PWGP_widget.left, .PWGP_shortcode.left {
+    text-align: left;
+}
+.PWGP_widget.center, .PWGP_shortcode.center {
+    text-align: center;
+}
+.PWGP_widget.right, .PWGP_shortcode.right {
+    text-align: right;
+}
+.img-drop-cap {
+	float: left;
+    margin: 0.2em 0.4em 0.2em 0;
+}
+.img-drop-cap-right {
+	float: right;
+    margin: 0.2em 0 0.2em 0.4em;
+}
+.blue-bg-linear-gradient {
+	text-align: center;
+	background: #d8e0de;
+	background: -moz-linear-gradient(top,  #d8e0de 0%, #aebfbc 22%, #99afab 33%, #8ea6a2 50%, #829d98 67%, #4e5c5a 82%, #0e0e0e 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8e0de), color-stop(22%,#aebfbc), color-stop(33%,#99afab), color-stop(50%,#8ea6a2), color-stop(67%,#829d98), color-stop(82%,#4e5c5a), color-stop(100%,#0e0e0e));
+	background: -webkit-linear-gradient(top,  #d8e0de 0%,#aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%);
+	background: -o-linear-gradient(top,  #d8e0de 0%,#aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%);
+	background: -ms-linear-gradient(top,  #d8e0de 0%,#aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%);
+	background: linear-gradient(to bottom,  #d8e0de 0%,#aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e0de', endColorstr='#0e0e0e',GradientType=0 );
+}
+.blue-bg-linear-gradient img {
+	margin: 1em;
 }

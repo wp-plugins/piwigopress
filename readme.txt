@@ -1,17 +1,17 @@
 === PiwigoPress ===
 Contributors: vpiwigo
 Donate link: http://www.vdigital.org/sharing/
-Tags: galleries, public pictures, randomize
+Tags: galleries, public pictures, randomize, shortcode
 Requires at least: 2.8.4
 Tested up to: 3.4.1
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 
 This widget integrates in your blog sidebars some randomized thumbnails and some links from your or any open API Piwigo gallery.
 
 == Description ==
 
 PiwigoPress is a WordPress Sidebar Widget that links to the pictures of a Piwigo gallery. 
-Thus, a Piwigo gallery with several public pictures in it is a prerequisite to make it work. 
+Thus, a Piwigo gallery with several public pictures in it is a prerequisite to make it working. 
 But even if you don't have one yet, you can nonetheless give this plugin a try by using the 
 Official Piwigo [demonstration gallery][] before
 setting up your own gallery.
@@ -21,15 +21,21 @@ blog, all of them being optional: a random thumbnail linking to the correspondin
 menus directing to all categories defined as public in the gallery, several additional links 
 to most recent, most viewed, most commented pictures, and more.
 
+In addition, though the shortcode [PiwigoPress ...] you can add any public picture of a Piwigo gallery.
+Here again you should try even though you don't have yet your Piwigo Gallery.
+Have a look with [PiwigoPress id=72 url='http://piwigo.org/demo'] in a post or page.
+
 When you've finished testing and want to create you own gallery, go to the Piwigo [download page][], 
 where you'll find all the links you might need.
 
 Try "NetInstall" first. If it fails, switch to the "Package" download and follow the full 
-installation procedure. Try « pLoader » but in any case, you will find an « Instructions » link 
+installation procedure. 
+When ready, if you are a bit lost, just try Photos add page sheets (Web form, Applications, FTP + Synchronization) 
 in your Piwigo gallery administration page.
 
 A Widget signed and supported by a Former Piwigo Team member.
 [demonstration gallery]: http://piwigo.org/demo  "The demonstration gallery"
+[download page]: http://piwigo.org/basics/downloads  "Piwigo download page"
 
 == Installation ==
 
@@ -39,7 +45,7 @@ How to install PiwigoPress and get it working.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Access to Widgets, draw PiwigoPress to the sidebar you want
 
-Explanation of Plugin data fields.
+Explanation of Plugin Widget data fields.
 
 * Title: To use in the sidebar
 * Square, Thumbnail, XXS - tiny,... : see you Piwigo configuration [Photo sizes] admin page
@@ -65,22 +71,32 @@ All below selectable option are special Piwigo links to include:
 * Keywords 
 * Comments 
 
+
+Explanation of Plugin Shortcode attributes.
+
+* id: (required) Photo Numeric identifier
+* url: (mandadory for first usage in a post or to change to another) domaine or domaine/piwigo-folder 
+* size: (default size='la') 2 letters as sq(Square), (th)Thumbnail, (2s)XXS - tiny, (xs)XS - extra small, (sm)S - small, 
+(me)M - medium, (la)L - large, (xl)XL - extra large,(xx)XXL - huge : see you Piwigo configuration [Photo sizes] admin page
+* class : (optional) additional CSS class selectors at DIV tag level (e.g. class="img-drop-cap img-shadow left")
+* style: (optional) any additional CSS rules at DIV tag level (e.g. style="background-color: rgba(16, 64, 192, 0.05); border-radius: 16px; padding: 12px;")
+* desc: (0,1) (0 by default) add the photo description in a textarea from description field 
+in the Edit photo [Properties] admin page if there is a filled description there
+
 == Frequently Asked Questions ==
 
-How can I get any thumbnails ?
+= How can I get any thumbnails ? =
 * Just have the URL without the /index.php? on the end.
 * Just have recent pictures in the gallery.
 * Change Since X months (0=all) from 12 to 0
 * Set "Number of pictures (0=none)" to 1 or 2  
 * If it doesn't work, see the provided screenshots...
 
-How can I get other sizes ? I only have thumbs and squares.
+= How can I get other sizes ? I only have thumbs and squares. =
 * In your gallery admin pages, find Configuration 
-and select: Options > Photo sizes > Multiple size > show details
+and there select: Options > Photo sizes > Multiple size > show details
 
-= A question that someone might have =
-
-How can I get squared thumbnails ?
+= How can I get squared thumbnails ? =
 * maybe you should try to upgrade your gallery to Piwigo 2.4.x or above.
 * See creenshots
 
@@ -90,8 +106,14 @@ How can I get squared thumbnails ?
 2. Expected result in your sidebar
 3. Widget parameters for your gallery (on the same domain)
 4. Piwigo admin Photo sizes (from a Gallery website)
+5. PiwigoPress shortcode samples
 
 == Changelog ==
+
+= 2.10 =
+* I18n version (Hugarian)
+* Widget: Largest sizes added (from user request)
+* WordPress shortcode for post/page: e.g. [PiwigoPress id=72 url='http://piwigo.org/demo']
 
 = 2.00 = 
 * Support of WordPress from 2.8.0 to 3.4.1 (and probably above)

@@ -2,6 +2,8 @@
 if (defined('PHPWG_ROOT_PATH')) return; /* Avoid direct usage under Piwigo */
 if (!defined('PWGP_NAME')) return; /* Avoid unpredicted access */
 
+	wp_register_script( 'piwigopress_ws', WP_PLUGIN_URL . '/piwigopress/js/piwigopress_widgets.js', array('jquery'), PWGP_VERSION );
+	wp_enqueue_script( 'piwigopress_ws' );
 	// Defaults
 	$gallery = wp_parse_args( (array) $gallery, array('title'=>__('Random picture'), 
 		'thumbnail'=> true, 'thumbnail_size' => 'sq', 'format'=>'any', 'piwigo'=>'piwigo', 'external'=>'', 'number'=>1, 'category'=>0, 'from'=> 12, 'divclass'=>'', 
@@ -39,7 +41,7 @@ if (!defined('PWGP_NAME')) return; /* Avoid unpredicted access */
 	echo '<p style="text-align:right;">
 		<input style="width: 50px;" id="' . $this->get_field_id('thumbnail') . '" name="' . $this->get_field_name('thumbnail')
 	. '" type="hidden" value="true">
-	<div id="thumbnail-size-select"><p style="text-align:right;">
+	<div class="thumbnail-size-select"><p style="text-align:right;">
 		<label for="'. $this->get_field_id('thumbnail_size') .'">' . __('Square','pwg') . ' </label> 
 		<input type="radio" value="sq" id="'. $this->get_field_id('thumbnail_size') .'" class="post-format" name="'. $this->get_field_name('thumbnail_size') .'" ' 
 			. checked($thumbnail_size,'sq',false) . '>
@@ -51,10 +53,34 @@ if (!defined('PWGP_NAME')) return; /* Avoid unpredicted access */
 			. checked($thumbnail_size,'2s',false) . '>
 		<label style="display: inline-block; width: 120px;" for="'. $this->get_field_id('thumbnail_size') .'">' . __('XS - extra small','pwg') . ' </label> 
 		<input type="radio" value="xs" id="'. $this->get_field_id('thumbnail_size') .'" class="post-format" name="'. $this->get_field_name('thumbnail_size') .'" ' 
-			. checked($thumbnail_size,'xs',false) . '><br>
-		<label for="'. $this->get_field_id('thumbnail_size') .'">' . __('S - small','pwg') . ' </label> 
+			. checked($thumbnail_size,'xs',false) . '><br>';
+		if ( in_array($thumbnail_size, array('sq','th','2s','xs')) ) {
+			echo '
+		<label style="display: inline-block; width: 120px;" for="'. $this->get_field_id('thumbnail_size') .'">
+		<a class="PWGP_widget" rel="nofollow" href="javascript:void(0);" title="' . __('Select a larger sized picture','pwg') . '">' . __('Large sizes','pwg') . '</a> </label>
+		<span class="hidden"> ';
+		}
+		echo '
+		<label style="display: inline-block; width: 120px;" for="'. $this->get_field_id('thumbnail_size') .'">' . __('S - small','pwg') . ' </label> 
 		<input type="radio" value="sm" id="'. $this->get_field_id('thumbnail_size') .'" class="post-format" name="'. $this->get_field_name('thumbnail_size') .'" ' 
-			. checked($thumbnail_size,'sm',false) . '></p>
+			. checked($thumbnail_size,'sm',false) . '>
+		<label style="display: inline-block; width: 120px;" for="'. $this->get_field_id('thumbnail_size') .'">' . __('M - medium','pwg') . ' </label> 
+		<input type="radio" value="me" id="'. $this->get_field_id('thumbnail_size') .'" class="post-format" name="'. $this->get_field_name('thumbnail_size') .'" ' 
+			. checked($thumbnail_size,'me',false) . '><br>
+		<label style="display: inline-block; width: 120px;" for="'. $this->get_field_id('thumbnail_size') .'">' . __('L - large','pwg') . ' </label> 
+		<input type="radio" value="la" id="'. $this->get_field_id('thumbnail_size') .'" class="post-format" name="'. $this->get_field_name('thumbnail_size') .'" ' 
+			. checked($thumbnail_size,'la',false) . '>
+		<label style="display: inline-block; width: 120px;" for="'. $this->get_field_id('thumbnail_size') .'">' . __('XL - extra large','pwg') . ' </label> 
+		<input type="radio" value="xl" id="'. $this->get_field_id('thumbnail_size') .'" class="post-format" name="'. $this->get_field_name('thumbnail_size') .'" ' 
+			. checked($thumbnail_size,'xl',false) . '><br>
+		<label style="display: inline-block; width: 120px;" for="'. $this->get_field_id('thumbnail_size') .'">' . __('XXL - huge','pwg') . ' </label> 
+		<input type="radio" value="xx" id="'. $this->get_field_id('thumbnail_size') .'" class="post-format" name="'. $this->get_field_name('thumbnail_size') .'" ' 
+			. checked($thumbnail_size,'xx',false) . '>';
+		if ( in_array($thumbnail_size, array('sq','th','2s','xs')) ) {
+			echo '</span>';
+		}
+		echo '
+		</p>
 	</div>
 	</p>';
 	// Orientation

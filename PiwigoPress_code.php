@@ -59,7 +59,10 @@ if ($thumbnail) {
 				if ($thumbnail_size == 'sm') $picture['tn_url'] = $picture['derivatives']['small']['url'] ;
 				if ($thumbnail_size == 'xs') $picture['tn_url'] = $picture['derivatives']['xsmall']['url'] ;
 				if ($thumbnail_size == '2s') $picture['tn_url'] = $picture['derivatives']['2small']['url'] ;
-				if ($thumbnail_size == 'sq') $picture['tn_url'] = $picture['derivatives']['square']['url'] ;
+				if ($thumbnail_size == 'me') $picture['tn_url'] = $picture['derivatives']['medium']['url'] ;
+				if ($thumbnail_size == 'la') $picture['tn_url'] = $picture['derivatives']['large']['url'] ;
+				if ($thumbnail_size == 'xl') $picture['tn_url'] = $picture['derivatives']['xlarge']['url'] ;
+				if ($thumbnail_size == 'xx') $picture['tn_url'] = $picture['derivatives']['xxlarge']['url'] ;
 			}
 			echo '<div' . $PiwigoPress_divclass . '><a title="' . htmlspecialchars($picture['name']) . '" href="' 
 				. $piwigo_url . 'picture.php?/' . $picture['id'] . '" target="_blank"><img '
