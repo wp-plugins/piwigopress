@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piwigopress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-05 00:25+0100\n"
+"POT-Creation-Date: 2012-09-02 13:59+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: vpiwigo <vpiwigo@gmail.com>\n"
 "Language-Team: Laurent Duretz <laurent@duretz.net>\n"
@@ -16,53 +16,185 @@ msgstr ""
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: trunk\n"
 
-#: trunk/piwigopress.php:51
+#: trunk/piwigopress.php:54
 msgid ""
 "PiwigoPress shortcode attribute \"id\" is required and must be positive."
 msgstr ""
-" Le paramètre \"id\" du shortcode de PiwigoPress est obligatoire et doit "
-"être positif."
+"Le paramètre \"id\" du shortcode de PiwigoPress est obligatoire et doit être "
+"positif."
 
-#: trunk/piwigopress.php:84
+#: trunk/piwigopress.php:88
 msgid ""
 "Adds a thumbnail and its link (to the picture) inside your blog sidebar."
 msgstr ""
 "Ajouter une miniature et son lien (vers l'image) dans la barre latérale du "
 "blog"
 
-#: trunk/PiwigoPress_code.php:91
+#: trunk/piwigopress_admin.php:37
+msgid "Piwigo gallery URL:"
+msgstr "URL de la galerie Piwigo :"
+
+#: trunk/piwigopress_admin.php:38
+msgid ""
+"Folder URL of any up-to-date Piwigo Gallery with public photos and opened "
+"webservices (MUST END with a \"/\")"
+msgstr ""
+"URL du dossier de l'index d'une galerie Piwigo à jour, avec des photos "
+"publiques, et ayant les webservices ouverts (DOIT FINIR par un \"/\")"
+
+#: trunk/piwigopress_admin.php:39
+msgid "Start with 5 recent pics"
+msgstr "Démarrer avec 5 images récentes"
+
+#: trunk/piwigopress_admin.php:40
+msgid ""
+"Load or reload the 5 most latest squared thumbnails from the url (might be "
+"changed or not)"
+msgstr ""
+"Charger ou recharger les 5 miniatures carrées les plus récentes à partir de "
+"l'URL (que celle-ci ait été modifié ou pas)"
+
+#: trunk/piwigopress_admin.php:41
+msgid "Get more"
+msgstr "Obtenir plus"
+
+#: trunk/piwigopress_admin.php:42
+msgid ""
+"Getting more squared thumbnails: starts by 5, then 5, 10, 10, 10, 10, 50, "
+"and continues by 100"
+msgstr ""
+"Collecter plus de miniatures carées ; en commençant par 5, puis 10, 10, 10, "
+"10, 50 et par 100 pour les demandes suivantes"
+
+#: trunk/piwigopress_admin.php:43
+msgid "Hide 50%"
+msgstr "Cacher 50%"
+
+#: trunk/piwigopress_admin.php:44
+#, php-format
+msgid "Hide 50% or less of current available squared thumbnails"
+msgstr ""
+"Masquer près de 50% ou moins des miniatures carrées actuellement accessibles."
+
+#: trunk/piwigopress_admin.php:45
+msgid "Show hidden"
+msgstr "Afficher les cachées"
+
+#: trunk/piwigopress_admin.php:46
+msgid "Display all currently hidden squared thumbnails"
+msgstr "Montrer toutes les miniatures carrées actuellement masquées"
+
+#: trunk/piwigopress_admin.php:47
+msgid "Drop one or several thumbnails over the blue border here above !"
+msgstr ""
+"Déposez une ou plusieurs miniatures au-dessus de la bordure bleue ci-dessus !"
+
+#: trunk/piwigopress_admin.php:48
+msgid "Loaded, hidden & dropped vs. Requested thumbnails: "
+msgstr "Collectées, masquées et déposées versus les miniatures demandées :"
+
+#: trunk/piwigopress_admin.php:49
+msgid "Shortcode options"
+msgstr "Options disponibles du Shortcode"
+
+#: trunk/piwigopress_admin.php:50 trunk/PiwigoPress_options.php:45
+msgid "Square"
+msgstr "Carré"
+
+#: trunk/piwigopress_admin.php:51 trunk/PiwigoPress_options.php:48
+msgid "Thumbnail"
+msgstr "Miniature"
+
+#: trunk/piwigopress_admin.php:52 trunk/PiwigoPress_options.php:54
+msgid "XS - extra small"
+msgstr "XS - très petit"
+
+#: trunk/piwigopress_admin.php:53 trunk/PiwigoPress_options.php:51
+msgid "XXS - tiny"
+msgstr "XXS - minuscule"
+
+#: trunk/piwigopress_admin.php:54 trunk/PiwigoPress_options.php:64
+msgid "S - small"
+msgstr "S - petit"
+
+#: trunk/piwigopress_admin.php:55 trunk/PiwigoPress_options.php:67
+msgid "M - medium"
+msgstr "M - moyen "
+
+#: trunk/piwigopress_admin.php:56 trunk/PiwigoPress_options.php:70
+msgid "L - large"
+msgstr "L - grand"
+
+#: trunk/piwigopress_admin.php:57 trunk/PiwigoPress_options.php:73
+msgid "XL - extra large"
+msgstr "XL - très grand"
+
+#: trunk/piwigopress_admin.php:58 trunk/PiwigoPress_options.php:76
+msgid "XXL - huge"
+msgstr "XXL - énorme"
+
+#: trunk/piwigopress_admin.php:69
+msgid "Display description"
+msgstr "Afficher la description"
+
+#: trunk/piwigopress_admin.php:70 trunk/PiwigoPress_options.php:124
+msgid "CSS DIV class"
+msgstr "Classe CSS pour DIV"
+
+#: trunk/piwigopress_admin.php:71
+msgid "Generate and insert"
+msgstr "Générer et insérer"
+
+#: trunk/piwigopress_admin.php:72
+msgid "Generate shortcodes of all dropped squared thumbnails"
+msgstr "Générer les « shortcodes» de toutes les miniatures carrées déposées"
+
+#: trunk/piwigopress_admin.php:73
+msgid "Reset dropping zone"
+msgstr "Réinitialiser la zone de dépôt"
+
+#: trunk/piwigopress_admin.php:74
+msgid "Remove all squared thumbnails from the dropping zone"
+msgstr "Retirer toutes les miniatures carrées présentes dans la zone de dépôt"
+
+#: trunk/piwigopress_admin.php:123
+msgid "Insert a PiwigoPress shortcode from a Piwigo dragged photo"
+msgstr ""
+"Insérer un « shortcode » de PiwigoPress à partir de chaque photo déposée"
+
+#: trunk/PiwigoPress_code.php:93
 msgid "Pictures categories"
 msgstr "Catégorie d'images"
 
-#: trunk/PiwigoPress_code.php:104 trunk/PiwigoPress_options.php:136
+#: trunk/PiwigoPress_code.php:106 trunk/PiwigoPress_options.php:136
 msgid "Most visited"
 msgstr "Plus populaires"
 
-#: trunk/PiwigoPress_code.php:107 trunk/PiwigoPress_options.php:139
+#: trunk/PiwigoPress_code.php:109 trunk/PiwigoPress_options.php:139
 msgid "Best rated"
 msgstr "Mieux notées"
 
-#: trunk/PiwigoPress_code.php:110 trunk/PiwigoPress_options.php:142
+#: trunk/PiwigoPress_code.php:112 trunk/PiwigoPress_options.php:142
 msgid "Most commented"
 msgstr "Plus commentées"
 
-#: trunk/PiwigoPress_code.php:113 trunk/PiwigoPress_options.php:145
+#: trunk/PiwigoPress_code.php:115 trunk/PiwigoPress_options.php:145
 msgid "Random"
 msgstr "Aléatoire"
 
-#: trunk/PiwigoPress_code.php:116 trunk/PiwigoPress_options.php:148
+#: trunk/PiwigoPress_code.php:118 trunk/PiwigoPress_options.php:148
 msgid "Recent pics"
 msgstr "Images récentes"
 
-#: trunk/PiwigoPress_code.php:119 trunk/PiwigoPress_options.php:151
+#: trunk/PiwigoPress_code.php:121 trunk/PiwigoPress_options.php:151
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: trunk/PiwigoPress_code.php:122 trunk/PiwigoPress_options.php:154
+#: trunk/PiwigoPress_code.php:124 trunk/PiwigoPress_options.php:154
 msgid "Tags"
 msgstr "Tags"
 
-#: trunk/PiwigoPress_code.php:125 trunk/PiwigoPress_options.php:157
+#: trunk/PiwigoPress_code.php:127 trunk/PiwigoPress_options.php:157
 msgid "Comments"
 msgstr "Commentaires"
 
@@ -74,22 +206,6 @@ msgstr "Images aléatoires"
 msgid "Title"
 msgstr "Titre"
 
-#: trunk/PiwigoPress_options.php:45
-msgid "Square"
-msgstr "Carré"
-
-#: trunk/PiwigoPress_options.php:48
-msgid "Thumbnail"
-msgstr "Miniature"
-
-#: trunk/PiwigoPress_options.php:51
-msgid "XXS - tiny"
-msgstr "XXS - minuscule"
-
-#: trunk/PiwigoPress_options.php:54
-msgid "XS - extra small"
-msgstr "XS - très petit"
-
 #: trunk/PiwigoPress_options.php:60
 msgid "Select a larger sized picture"
 msgstr "Sélectionner une image dans une grande taille"
@@ -97,26 +213,6 @@ msgstr "Sélectionner une image dans une grande taille"
 #: trunk/PiwigoPress_options.php:60
 msgid "Large sizes"
 msgstr "Grandes tailles"
-
-#: trunk/PiwigoPress_options.php:64
-msgid "S - small"
-msgstr "S - petit"
-
-#: trunk/PiwigoPress_options.php:67
-msgid "M - medium"
-msgstr "M - moyen "
-
-#: trunk/PiwigoPress_options.php:70
-msgid "L - large"
-msgstr "L - grand"
-
-#: trunk/PiwigoPress_options.php:73
-msgid "XL - extra large"
-msgstr "XL - très grand"
-
-#: trunk/PiwigoPress_options.php:76
-msgid "XXL - huge"
-msgstr "XXL - énorme"
 
 #: trunk/PiwigoPress_options.php:89
 msgid "Any orientation"
@@ -153,10 +249,6 @@ msgstr "Id de la catégorie (0=toutes)"
 #: trunk/PiwigoPress_options.php:120
 msgid "Since X months (0=all)"
 msgstr "Depuis X mois (0=tous)"
-
-#: trunk/PiwigoPress_options.php:124
-msgid "CSS DIV class"
-msgstr "Classe CSS pour DIV"
 
 #: trunk/PiwigoPress_options.php:128
 msgid "CSS IMG class"

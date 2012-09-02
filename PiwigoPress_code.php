@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (defined('PHPWG_ROOT_PATH')) return; /* Avoid direct usage under Piwigo */
 if (!defined('PWGP_NAME')) return; /* Avoid unpredicted access */
 
@@ -56,6 +56,7 @@ if ($thumbnail) {
 		foreach ($pictures as $picture) {
 			if (isset($picture['derivatives']['square']['url'])) {
 				$picture['tn_url'] = $picture['derivatives']['thumb']['url'] ;
+				if ($thumbnail_size == 'sq') $picture['tn_url'] = $picture['derivatives']['square']['url'] ;
 				if ($thumbnail_size == 'sm') $picture['tn_url'] = $picture['derivatives']['small']['url'] ;
 				if ($thumbnail_size == 'xs') $picture['tn_url'] = $picture['derivatives']['xsmall']['url'] ;
 				if ($thumbnail_size == '2s') $picture['tn_url'] = $picture['derivatives']['2small']['url'] ;
@@ -72,7 +73,8 @@ if ($thumbnail) {
 				$picture['comment'] = stripslashes(htmlspecialchars(strip_tags($picture['comment'])));
 				$box_height = (24 * (int)(strlen($picture['comment'])/45))+32; 
 				// estimated height of the box in case of description to avoid some vertical scrollbar inside the textarea
-				echo '<textarea style="height: ' . $box_height . 'px;">' . $picture['comment'] . '</textarea>'; 
+				if (trim($picture['comment']) != '')
+					echo '<textarea style="height: ' . $box_height . 'px;">' . $picture['comment'] . '</textarea>'; 
 			}
 			echo '</a>
 			<a class="img_selector" name="' . $picture['element_url'] . '" rel="nofollow" href="javascript:void(0);" title="' 

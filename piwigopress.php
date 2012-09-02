@@ -3,7 +3,7 @@
 Plugin Name: PiwigoPress
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=316
 Description: PiwigoPress is a WordPress widget, linking your Piwigo gallery (<a href="http://piwigo.org/">Piwigo</a>) to your Wordpress blog. Required some public pictures in your Piwigo gallery.
-Version: 2.10
+Version: 2.20
 Author: vpiwigo ( for The Piwigo Team )
 Author URI: http://www.vdigital.org/sharing/
 */
@@ -25,7 +25,8 @@ if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo 
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if (!defined('PWGP_NAME')) define('PWGP_NAME','PiwigoPress');
-if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.1.0');
+if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.2.0');
+
 load_plugin_textdomain('pwg', 'wp-content/plugins/piwigopress', 'piwigopress' );
 add_shortcode('PiwigoPress', 'PiwigoPress_photoblog');
 
@@ -48,7 +49,10 @@ function PiwigoPress_photoblog($parm) {
 	if (substr($url,0,4)!='http') $url = 'http://' . $url;
 	if (substr($url,-1)!='/') $url .= '/';
 	if ($previous_url != $url) update_option( 'PiwigoPress_previous_url', $url );
-	if ( !is_numeric($id) or $id < 1) return _('PiwigoPress shortcode attribute "id" is required and must be positive.','pwg');
+	if ( !is_numeric($id) or $id < 1) {
+		return "<!-- PiwigoPress 'id' attribute in error -->\n\n<br>" 
+		. __('PiwigoPress shortcode attribute "id" is required and must be positive.','pwg') . "<br>\n\n" ;
+	}
 	$deriv = array ( 'sq' => 'square', 'th' => 'thumb', 'sm' => 'small', 'xs' => 'xsmall', '2s' => '2small', 
 					 'me' => 'medium', 'la' => 'large', 'xl' => 'xlarge', 'xx' => 'xxlarge');
 	if (!function_exists('pwg_get_contents')) include 'PiwigoPress_get.php';
@@ -127,13 +131,16 @@ add_action('widgets_init', PWGP_NAME . '_Init');
 
 // Style allocation
 function PiwigoPress_load_in_head() {
-    /* CSS */
-	// wp_register_style( 'piwigopress_c', WP_PLUGIN_URL. '/piwigopress/css/piwigopress.css', array(), PWGP_VERSION );
-	// wp_enqueue_style( 'piwigopress_c'); // doesn't include the additional style sheet inside the head tag section
 	if (defined('PWGP_CSS_FILE')) return; // Avoid several links to CSS in case of several usage of PiwigoPress... 
 	define('PWGP_CSS_FILE','');
-	echo '<link media="all" type="text/css" href="' . 
-		WP_PLUGIN_URL . '/piwigopress/css/piwigopress.css?ver=' . PWGP_VERSION . '" id="piwigopress_c-css" rel="stylesheet">'; // that's fine
+	if ( is_admin() ) {
+		echo '<link media="all" type="text/css" href="' . 
+			WP_PLUGIN_URL . '/piwigopress/css/piwigopress_adm.min.css?ver=' . PWGP_VERSION . '" id="piwigopress_a-css" rel="stylesheet">'; // that's fine
+	}
+	else {
+		echo '<link media="all" type="text/css" href="' . 
+			WP_PLUGIN_URL . '/piwigopress/css/piwigopress.css?ver=' . PWGP_VERSION . '" id="piwigopress_c-css" rel="stylesheet">'; // that's fine
+	}
 }
 add_action('wp_head',  PWGP_NAME . '_load_in_head');
 
@@ -142,8 +149,26 @@ function PiwigoPress_load_in_footer() {
 	/* Scripts */
 	wp_register_script( 'piwigopress_s', WP_PLUGIN_URL . '/piwigopress/js/piwigopress.js', array('jquery'), PWGP_VERSION );
 	wp_enqueue_script( 'jquery'); // include it even if it's done
+	if ( is_admin() ) {
+		wp_register_script( 'piwigopress_a', WP_PLUGIN_URL . '/piwigopress/js/piwigopress_adm.min.js', array('jquery'), PWGP_VERSION );
+		wp_enqueue_script( 'jquery-ui-draggable' );
+		wp_enqueue_script( 'jquery-ui-droppable' );
+		wp_enqueue_script( 'piwigopress_a' );
+	}
 	wp_enqueue_script( 'piwigopress_s' );
 }
 add_action('wp_footer',  PWGP_NAME . '_load_in_footer');
 
+function PiwigoPress_register_plugin() {
+    if (!current_user_can('edit_posts') && !current_user_can('edit_pages'))
+        return;
+    add_action('admin_head', PWGP_NAME . '_load_in_head');
+}
+
+add_action('init', PWGP_NAME . '_register_plugin');
+
+// Admin code only if distributed and in Admin
+if ( is_admin() ) {
+		@include 'piwigopress_admin.php';
+}
 ?>

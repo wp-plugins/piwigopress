@@ -4,9 +4,10 @@ Donate link: http://www.vdigital.org/sharing/
 Tags: galleries, public pictures, randomize, shortcode
 Requires at least: 2.8.4
 Tested up to: 3.4.1
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 
 This widget integrates in your blog sidebars some randomized thumbnails and some links from your or any open API Piwigo gallery.
+More, you are going to activate a shortcode generator through Page/Post edit and swiftly build your Photoblog based on a (your) Piwigo gallery.
 
 == Description ==
 
@@ -21,9 +22,12 @@ blog, all of them being optional: a random thumbnail linking to the correspondin
 menus directing to all categories defined as public in the gallery, several additional links 
 to most recent, most viewed, most commented pictures, and more.
 
-In addition, though the shortcode [PiwigoPress ...] you can add any public picture of a Piwigo gallery.
+In addition, by using a shortcode [PiwigoPress ...] you can add any public picture of a Piwigo gallery.
 Here again you should try even though you don't have yet your Piwigo Gallery.
 Have a look with [PiwigoPress id=72 url='http://piwigo.org/demo'] in a post or page.
+
+Now, with the shortcode generator, each time you add some pictures to your gallery you will be able to add a post related to your last uploaded photos.
+So, your friends and family are going to like that and Search Engines are going reference your gallery with the refbacks provided by PiwigoPress.
 
 When you've finished testing and want to create you own gallery, go to the Piwigo [download page][], 
 where you'll find all the links you might need.
@@ -33,7 +37,7 @@ installation procedure.
 When ready, if you are a bit lost, just try Photos add page sheets (Web form, Applications, FTP + Synchronization) 
 in your Piwigo gallery administration page.
 
-A Widget signed and supported by a Former Piwigo Team member.
+A Plugin/Widget signed and supported by a Former Piwigo Team member.
 [demonstration gallery]: http://piwigo.org/demo  "The demonstration gallery"
 [download page]: http://piwigo.org/basics/downloads  "Piwigo download page"
 
@@ -55,6 +59,7 @@ Explanation of Plugin Widget data fields.
 * Number of pictures (0=none): Number of thumbnails to get
 
 Optional parameters
+
 * Category id (0=all): Pictures from a specific Piwigo category or from all
 * Since X months (0=all): Age of posted picture
 * CSS DIV class: For your blog design
@@ -62,13 +67,14 @@ Optional parameters
 * Categories menu: Includes all links related to Piwigo categories
 
 All below selectable option are special Piwigo links to include:
-* Most visited 
-* Best rated 
+
+* Most visited
+* Best rated
 * Most commented (need a plugin in the client gallery)
 * Random
-* Recent pics 
-* Calendar 
-* Keywords 
+* Recent pics
+* Calendar
+* Keywords
 * Comments 
 
 
@@ -79,9 +85,11 @@ Explanation of Plugin Shortcode attributes.
 * size: (default size='la') 2 letters as sq(Square), (th)Thumbnail, (2s)XXS - tiny, (xs)XS - extra small, (sm)S - small, 
 (me)M - medium, (la)L - large, (xl)XL - extra large,(xx)XXL - huge : see you Piwigo configuration [Photo sizes] admin page
 * class : (optional) additional CSS class selectors at DIV tag level (e.g. class="img-drop-cap img-shadow left")
-* style: (optional) any additional CSS rules at DIV tag level (e.g. style="background-color: rgba(16, 64, 192, 0.05); border-radius: 16px; padding: 12px;")
+* style: (optional) any additional CSS rules at DIV tag level (e.g. style="background-color: rgba(16, 64, 192, 0.05);")
 * desc: (0,1) (0 by default) add the photo description in a textarea from description field 
 in the Edit photo [Properties] admin page if there is a filled description there
+
+"style" is not used by the Shortcode generator
 
 == Frequently Asked Questions ==
 
@@ -107,13 +115,21 @@ and there select: Options > Photo sizes > Multiple size > show details
 3. Widget parameters for your gallery (on the same domain)
 4. Piwigo admin Photo sizes (from a Gallery website)
 5. PiwigoPress shortcode samples
+6. PiwigoPress shortcode generator above Post/Page editor usable with both Visual/HTML editor.
+7. Buttons, Drag and Drop zones for a total intuitive interface.
+8. Generation and insertion of the shortcodes are done at caret (insert cursor) position.
+9. Expected result on your page or post of your Wordpress blog. 
 
 == Changelog ==
+
+= 2.20 =
+* Edit post/page shortcode generator using Drag-n-drop (a useful tool for your photoblog). 
+If you don't have your own up-to-date Piwigo gallery, just try it with Piwigo demo URL: http://piwigo.org/demo/
 
 = 2.10 =
 * I18n version (Hugarian)
 * Widget: Largest sizes added (from user request)
-* WordPress shortcode for post/page: e.g. [PiwigoPress id=72 url='http://piwigo.org/demo']
+* WordPress shortcode for post/page: e.g. [PiwigoPress id=72 url='http://piwigo.org/demo/']
 
 = 2.00 = 
 * Support of WordPress from 2.8.0 to 3.4.1 (and probably above)
