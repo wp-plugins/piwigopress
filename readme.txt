@@ -3,8 +3,8 @@ Contributors: vpiwigo
 Donate link: http://www.vdigital.org/sharing/
 Tags: galleries, public pictures, randomize, shortcode
 Requires at least: 2.8.4
-Tested up to: 3.4.1
-Stable tag: 2.2.0
+Tested up to: 3.4.2
+Stable tag: 2.2.1
 
 This widget integrates in your blog sidebars some randomized thumbnails and some links from your or any open API Piwigo gallery.
 More, you are going to activate a shortcode generator through Page/Post edit and swiftly build your Photoblog based on a (your) Piwigo gallery.
@@ -121,6 +121,12 @@ and there select: Options > Photo sizes > Multiple size > show details
 9. Expected result on your page or post of your Wordpress blog. 
 
 == Changelog ==
+
+= 2.21 =
+* Minor issues solved in drag & drop.
+* jQuery code reviewed
+* QuickPress support 
+If you don't have your own up-to-date Piwigo gallery, just try it with Piwigo demo URL: http://piwigo.org/demo/
 
 = 2.20 =
 * Edit post/page shortcode generator using Drag-n-drop (a useful tool for your photoblog). 

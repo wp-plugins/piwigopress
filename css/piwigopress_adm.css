@@ -51,7 +51,7 @@
     height: 150px;
     padding: 20px 20px 0;
 }
-#PWGP_Gallery_shortcoder .thumbnail-select td {
+#PWGP_shortcoder .thumbnail-select td {
 	width: 2%; /* not checked with all browsers */
 }
 #PWGP_Load_Active {
@@ -75,7 +75,7 @@
 #PWGP_short_option legend span {
 	margin: 0 12px;
 }
-#PWGP_Gallery_shortcoder .img-shadow img {
+#PWGP_shortcoder .img-shadow img {
 	border-radius: 18px;
 	background: #fff;
 } 

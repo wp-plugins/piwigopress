@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: PiwigoPress
-Plugin URI: http://piwigo.org/ext/extension_view.php?eid=316
+Plugin URI: http://wordpress.org/extend/plugins/piwigopress/
 Description: PiwigoPress is a WordPress widget, linking your Piwigo gallery (<a href="http://piwigo.org/">Piwigo</a>) to your Wordpress blog. Required some public pictures in your Piwigo gallery.
-Version: 2.20
+Version: 2.21
 Author: vpiwigo ( for The Piwigo Team )
 Author URI: http://www.vdigital.org/sharing/
 */
@@ -25,7 +25,7 @@ if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo 
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if (!defined('PWGP_NAME')) define('PWGP_NAME','PiwigoPress');
-if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.2.0');
+if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.2.1');
 
 load_plugin_textdomain('pwg', 'wp-content/plugins/piwigopress', 'piwigopress' );
 add_shortcode('PiwigoPress', 'PiwigoPress_photoblog');

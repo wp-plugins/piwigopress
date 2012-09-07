@@ -31,16 +31,17 @@ Compiler on http://refresh-sf.com/yui/
 	});
 	$(document).ready(function() {
 		var pwgp_Gallery_Display = true;
-	   
-		$("a#PWGP_button").unbind('click').click(function () {
+		$("a#PWGP_button").click(function () {
 			if ( pwgp_Gallery_Display ) {
-				if ( $("#PWGP_Gallery_shortcoder").size() == 0 ) { // First time use: Create thumbnails areas
-					var finder = $("#PWGP_Gallery_finder").html();
-					$("#poststuff").before('<div id="PWGP_Gallery_shortcoder" />');
-					$("#PWGP_Gallery_shortcoder").html(finder);
-					$("#PWGP_Gallery_finder").remove();
-				} else { // Already available, just show it
-					$("#PWGP_Gallery_shortcoder").show();
+				if ( $('#dashboard-widgets-wrap').size() == 0 ) { var where = "#poststuff"; }
+				else { var where = "#dashboard-widgets-wrap"; } // On Dashboard
+				if ( $("#PWGP_shortcoder").size() == 0 ) { // First: Create Drag & Drop zones
+					var finder = $("#PWGP_Gal_finder").html();
+					$( where ).before('<div id="PWGP_shortcoder" />');
+					$("#PWGP_shortcoder").html(finder);
+					$("#PWGP_Gal_finder").remove();
+				} else { // Just show Drag & Drop zones
+					$("#PWGP_shortcoder").show();
 				}
 				$('#PWGP_finder').focusin(function() { // Changing Gallery URL hides buttons
 					$("#PWGP_more").hide();
@@ -48,30 +49,31 @@ Compiler on http://refresh-sf.com/yui/
 					$("#PWGP_show").hide();
 					$("#PWGP_show_stats").hide();
 				});
-				$("#PWGP_show_button").unbind('click').click(function () {
+				$("#PWGP_load").click(function () {
 					var url = $("#PWGP_finder").val(), // New URL to load
 						loaded = 5,
 						$gallery = $( "#PWGP_dragger" ),
+						$dragli = $( "#PWGP_dragger li" ),
 						$trash = $( "#PWGP_dropping" );
-					$('.PWGP_system').show(2000);
+					$('.PWGP_system').show(500);
 
 					$('#PWGP_Load_Active').show(); // Busy icon is on
 
 					// Ready to Load and generate
 					$gallery.load('../wp-content/plugins/piwigopress/thumbnails_reloader.php?&url='+url, function() {
-						$("#PWGP_more").fadeIn('slow','swing').addClass('button').unbind('click').click(function () {
+						$("#PWGP_more").show().click(function () {
 							Get_more();
 						});
-						$("#PWGP_hide").fadeIn('slow','swing').addClass('button').unbind('click').click(function () {
+						$("#PWGP_hide").show().click(function () {
 							var hide = Math.max(1, Math.floor( $('li:visible', $gallery).size() / 2 ));
 							for(i=0;i<hide;i++) {
 								$gallery.find('li:visible').first().hide();
 							}
 							if ($('li:visible', $gallery).size() == 0) $("#PWGP_hide").hide();
 							else {
-								$("#PWGP_show").fadeIn('slow','swing').addClass('button').unbind('click').click(function () {
-									$('li:hidden', $gallery).fadeIn(500);
-									$("#PWGP_show").fadeOut(2000);
+								$("#PWGP_show").show().click(function () {
+									$('li:hidden', $gallery).show();
+									$("#PWGP_show").hide();
 								});
 							}
 						});
@@ -84,24 +86,23 @@ Compiler on http://refresh-sf.com/yui/
 							  url: '../wp-content/plugins/piwigopress/thumbnails_reloader.php?&loaded='+loaded+'&url='+url,
 							  cache: false,
 							  success: function(html){
-								$($gallery).append(html);
-								Drag_n_Drop();
-								$('#PWGP_Load_Active').hide();
+								Drag_n_Drop(html);
 							  }
 							});
 							var added = 5;
 							if (loaded > 9) added = 10; 
 							if (loaded > 49) added = 50; 
-							if (loaded > 99) added = 100; // More we loaded larger next step might be
+							if (loaded > 99) added = 100; // More we load larger next load might be
 							loaded += added;
 						};
-						function Drag_n_Drop() {
-							var hgal = ($('#PWGP_dragger img').height())+20;  
+						function Drag_n_Drop(thumbs) {
+							$($gallery).append(thumbs);
+							var hgal = ($('#PWGP_dragger img').first().height())+20;  
 							$gallery.height(hgal); // Ajust loading area height to thumbnail height
 							$trash.height(hgal+25).css('min-height', hgal+25); // Adjust dropping zone as well
-							$('#PWGP_dropping ul').height(hgal).css('min-height', hgal);
-							$( "li", $gallery ).draggable({
-								revert: "invalid", helper: "clone", cursor: "move"
+							$('#PWGP_dropping ul').height(hgal);
+							$('li', $gallery).draggable({
+								revert: true, cursor: "move", zIndex: 50
 							});
 							var obtained = $('li', $trash).size() + $('li', $gallery).size();
 							$("#PWGP_show_stats").show().find("#PWGP_stats").text(' '+obtained+' / '+loaded);
@@ -109,17 +110,16 @@ Compiler on http://refresh-sf.com/yui/
 								activeClass: "ui-state-highlight",
 								drop: function( event, ui ) { 
 									insertImage( ui.draggable ); // This DOM is now droppable
-									$("a#PWGP_Gen").fadeIn('slow','swing').addClass('button');
-									$("a#PWGP_rst").fadeIn('slow','swing').addClass('button');
 								}
 							});
 							if ($('li:visible', $gallery).size() > 0) $("#PWGP_hide").show();
+							$('#PWGP_Load_Active').hide();
 						};
 						function insertImage( $item ) {
 							$item.fadeOut(function() {
 								var $list = $( "ul", $trash );
-								$item.appendTo( $list ).fadeIn(2000,'swing'); // Available to be shortcoded
-								$("a#PWGP_Gen").unbind('click').click(function () {
+								$item.appendTo( $list ).fadeIn(); // Available to be shortcoded
+								$("a#PWGP_Gen").unbind().click(function () {
 									$("img", $trash).each(function () {
 										var $Shortcode = $(this).attr('title').split(']');
 										var $scode = $Shortcode[0];
@@ -130,7 +130,7 @@ Compiler on http://refresh-sf.com/yui/
 										if ( $hdesc == 1 ) $scode += " desc=1";
 										var $hclass = $('#photo_class').val();
 										if ( $hclass != '' ) $scode += " class='"+$hclass+"'";
-										var $scode = "\t"+$scode+"] <br>\n\r";
+										var $scode = "\t"+$scode+"] \n\r";
 										// HTML Editor only insert statement
 										$('#content').insertAtCaret( $scode );
 										// Visual Editor Only insert statement
@@ -141,19 +141,21 @@ Compiler on http://refresh-sf.com/yui/
 										// http://wordpress.org/support/plugin/piwigopress
 									});  
 								});
-								$("a#PWGP_rst").unbind('click').click(function () {
+								$("a#PWGP_rst").unbind().click(function () {
 									$('li', $trash).appendTo( $gallery );
-									$("a#PWGP_Gen").hide().removeClass('button');
-									$("a#PWGP_rst").hide().removeClass('button');
+									$("a#PWGP_Gen").hide();
+									$("a#PWGP_rst").hide();
 									$("#PWGP_show_stats").show().find("#PWGP_stats").text(' '+$('li', $gallery).size()+' / '+loaded);
 								});
 							}); 
+							$("a#PWGP_Gen").show();
+							$("a#PWGP_rst").show();
 						};
 					}); // End of Loaded
 				});	
 				pwgp_Gallery_Display = false;
 			} else {
-				$("div#PWGP_Gallery_shortcoder").hide();
+				$("div#PWGP_shortcoder").hide();
 				pwgp_Gallery_Display = true;
 			}
 		});

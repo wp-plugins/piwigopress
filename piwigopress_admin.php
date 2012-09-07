@@ -73,14 +73,13 @@ if(!class_exists('PiwigoPress_Admin')){
 			$Reset_drop =  __('Reset dropping zone','pwg');
 			$rstdesc = __('Remove all squared thumbnails from the dropping zone','pwg');
 			echo <<<EOF
-<div id="PWGP_Gallery_finder" style="display:none">
+<div id="PWGP_Gal_finder" style="display:none">
 	<label>$url
 	<input id="PWGP_finder" type="text" value="$previous_url" name="piwigopress_url" style="width: 250px;" title="$recommendation"></label>
-	&nbsp;	<a id="PWGP_more" rel="nofollow" href="javascript:void(0);" class="hidden" title="$moredesc">$more</a>
-	&nbsp;	<a id="PWGP_hide" rel="nofollow" href="javascript:void(0);" class="hidden" title="$hidedesc">$hide</a>
-	&nbsp;	<a id="PWGP_show" rel="nofollow" href="javascript:void(0);" class="hidden" title="$showdesc">$show</a>
-	&nbsp;	<a id="PWGP_show" rel="nofollow" href="javascript:void(0);" class="hidden" title="$showdesc">$show</a>
-	&nbsp;	<a id="PWGP_show_button" rel="nofollow" href="javascript:void(0);" class="button" title="$loaddesc">$load</a>
+	&nbsp;	<a id="PWGP_more" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$moredesc">$more</a>
+	&nbsp;	<a id="PWGP_hide" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$hidedesc">$hide</a>
+	&nbsp;	<a id="PWGP_show" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$showdesc">$show</a>
+	&nbsp;	<a id="PWGP_load" rel="nofollow" href="javascript:void(0);" class="button" title="$loaddesc">$load</a>
 	<ul class='hidden'></ul>
 	<div class="PWGP_system" style="display:none">
 		<div class="PWGP_gallery">
@@ -112,8 +111,8 @@ if(!class_exists('PiwigoPress_Admin')){
 			</td><td><label>$Lib_CSS_div 	&nbsp; <input id="photo_class" style="width: 200px;" name="photo_class" type="text" value="$photo_class" /></label>
 			</td><td><label><input id="desc_check" style="width: 30px;" name="desc_check" type="checkbox" $descrip_check value="true" /> &nbsp; $Lib_desc</label>
 			</td></tr></table>
-			<table><tr></tr><tr><td><a id="PWGP_Gen" rel="nofollow" href="javascript:void(0);" class="hidden" title="$gendesc">$Gen_insert</a>&nbsp;</br>
-			</td><td><a id="PWGP_rst" rel="nofollow" href="javascript:void(0);" class="hidden" title="$rstdesc">$Reset_drop</a>&nbsp;</br>
+			<table><tr></tr><tr><td><a id="PWGP_Gen" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$gendesc">$Gen_insert</a>&nbsp;</br>
+			</td><td><a id="PWGP_rst" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$rstdesc">$Reset_drop</a>&nbsp;</br>
 			</td></tr></table>
 		</div>
 	</fieldset>
