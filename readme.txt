@@ -1,33 +1,34 @@
 === PiwigoPress ===
 Contributors: vpiwigo
 Donate link: http://www.vdigital.org/sharing/
-Tags: galleries, public pictures, randomize, shortcode
+Tags: galleries, pictures, randomize, shortcode, gallery, integration, photos, drag, drop
 Requires at least: 2.8.4
 Tested up to: 3.4.2
 Stable tag: 2.2.1
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This widget integrates in your blog sidebars some randomized thumbnails and some links from your or any open API Piwigo gallery.
-More, you are going to activate a shortcode generator through Page/Post edit and swiftly build your Photoblog based on a (your) Piwigo gallery.
+From any open API Piwigo gallery, swiftly include your photos in Posts/Pages and/or add randomized thumbnails and menus in your sidebar.
 
 == Description ==
 
-PiwigoPress is a WordPress Sidebar Widget that links to the pictures of a Piwigo gallery. 
+On the one hand, PiwigoPress is a WordPress **Sidebar Widget** that links your blog to some public pictures of a Piwigo gallery. 
 Thus, a Piwigo gallery with several public pictures in it is a prerequisite to make it working. 
 But even if you don't have one yet, you can nonetheless give this plugin a try by using the 
-Official Piwigo [demonstration gallery][] before
-setting up your own gallery.
+Official Piwigo [demonstration gallery][] before setting up your own gallery.
 
-PiwigoPress can display several links to the Piwigo gallery in the sidebars of your WordPress 
+PiwigoPress generates several highly valuable links in sidebars of your WordPress 
 blog, all of them being optional: a random thumbnail linking to the corresponding picture page, 
 menus directing to all categories defined as public in the gallery, several additional links 
 to most recent, most viewed, most commented pictures, and more.
 
-In addition, by using a shortcode [PiwigoPress ...] you can add any public picture of a Piwigo gallery.
+On the other hand, by using **a shortcode** [PiwigoPress ...] you can add any public picture of a Piwigo gallery.
 Here again you should try even though you don't have yet your Piwigo Gallery.
 Have a look with [PiwigoPress id=72 url='http://piwigo.org/demo'] in a post or page.
 
-Now, with the shortcode generator, each time you add some pictures to your gallery you will be able to add a post related to your last uploaded photos.
-So, your friends and family are going to like that and Search Engines are going reference your gallery with the refbacks provided by PiwigoPress.
+Above all, PiwigoPress provide a shortcode **generator**. 
+Each time you add some pictures to your gallery you will be able to add a post related to your last uploaded photos.
+So, your friends and family are going to like your photos and Search Engines are going reference your gallery with the refbacks provided by PiwigoPress.
 
 When you've finished testing and want to create you own gallery, go to the Piwigo [download page][], 
 where you'll find all the links you might need.
@@ -37,7 +38,7 @@ installation procedure.
 When ready, if you are a bit lost, just try Photos add page sheets (Web form, Applications, FTP + Synchronization) 
 in your Piwigo gallery administration page.
 
-A Plugin/Widget signed and supported by a Former Piwigo Team member.
+PiwigoPress is a Plugin/Widget signed and supported by a Former Piwigo Team member.
 [demonstration gallery]: http://piwigo.org/demo  "The demonstration gallery"
 [download page]: http://piwigo.org/basics/downloads  "Piwigo download page"
 
@@ -125,7 +126,7 @@ and there select: Options > Photo sizes > Multiple size > show details
 = 2.21 =
 * Minor issues solved in drag & drop.
 * jQuery code reviewed
-* QuickPress support 
+* WordPress 3.4.2 support 
 If you don't have your own up-to-date Piwigo gallery, just try it with Piwigo demo URL: http://piwigo.org/demo/
 
 = 2.20 =
@@ -164,3 +165,14 @@ If you don't have your own up-to-date Piwigo gallery, just try it with Piwigo de
 
 = 1.0 =
 * First version.
+
+== Upgrade Notice ==
+
+= 2.21 =
+Performances
+
+= 2.20 =
+Swiftly transform your blog in a photoblog. 
+
+= 2.00 = 
+Previous release didn't support Piwigo recent release (if you upgrade your Piwigo Gallery to 2.4.x or above, PiwigoPress previous release will fail).
