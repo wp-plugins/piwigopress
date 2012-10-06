@@ -2,8 +2,8 @@
 /*
 Plugin Name: PiwigoPress
 Plugin URI: http://wordpress.org/extend/plugins/piwigopress/
-Description: PiwigoPress is a WordPress widget, linking your Piwigo gallery (<a href="http://piwigo.org/">Piwigo</a>) to your Wordpress blog. Required some public pictures in your Piwigo gallery.
-Version: 2.21
+Description: PiwigoPress from any open API Piwigo gallery, swiftly includes your photos in Posts/Pages and/or add randomized thumbnails and menus in your sidebar.
+Version: 2.22
 Author: vpiwigo ( for The Piwigo Team )
 Author URI: http://www.vdigital.org/sharing/
 */
@@ -25,7 +25,7 @@ if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo 
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if (!defined('PWGP_NAME')) define('PWGP_NAME','PiwigoPress');
-if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.2.1');
+if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.2.2');
 
 load_plugin_textdomain('pwg', 'wp-content/plugins/piwigopress', 'piwigopress' );
 add_shortcode('PiwigoPress', 'PiwigoPress_photoblog');
@@ -37,10 +37,12 @@ function PiwigoPress_photoblog($parm) {
 				'size' => 'la', // Default large
 				'desc' => 0, 	// Generate picture description
 				'class' => '',	// Specific class
-				'style' => ''	// Specific style
+				'style' => '',	// Specific style
+				'lnktype' => 'picture' // Default generated link 
 		);
-	extract(shortcode_atts( $default, $parm ));
-	$previous_url = get_option( 'PiwigoPress_previous_url');
+	$parm = array_change_key_case( $parm );
+	extract( shortcode_atts( $default, $parm ) );
+	$previous_url = get_option( 'PiwigoPress_previous_url' );
 	if ($previous_url === false) {
 		$previous_url = $_SERVER['HTTP_HOST'] . '/piwigo';
 		add_option( 'PiwigoPress_previous_url', $previous_url );
@@ -63,16 +65,22 @@ function PiwigoPress_photoblog($parm) {
 		//var_dump($picture);
 		if (isset($picture['derivatives']['square']['url'])) {
 			$picture['tn_url'] = $picture['derivatives'][$deriv[$size]]['url'] ;
-			$div = '<div class="PWGP_shortcode ' . $class . '"><a title="' . htmlspecialchars($picture['name']) . '" href="' 
-				. $url . 'picture.php?/' . $picture['id'] . '" target="_blank"><img  class="PWGP_photo" src="' . $picture['tn_url'] . '" alt=""/>';
+			$atag = '<a title="' . htmlspecialchars($picture['name']) . '" href="' 
+				. $url . 'picture.php?/' . $picture['id'] . '" target="_blank">';
+			if ( $lnktype == 'none' ) $atag = '';
+			if ( $lnktype == 'album' ) {
+				$cats = array_reverse($picture['categories']);
+				$atag = '<a title="' . htmlspecialchars($cats[0]['name']) . '" href="' 
+				. $url . 'index.php?/category/' . $cats[0]['id'] . '" target="_blank">';
+			}
+			$div = '<div class="PWGP_shortcode ' . $class . '">' . $atag. '<img  class="PWGP_photo" src="' . $picture['tn_url'] . '" alt=""/>';
 			if (isset( $picture['comment'] ) and $desc) { 
 				$picture['comment'] = stripslashes(htmlspecialchars(strip_tags($picture['comment'])));
-				$box_height = (24 * (int)(strlen($picture['comment'])/45))+32; 
-				// estimated height of the box in case of description to avoid some vertical scrollbar inside the textarea
-				$div .= '<textarea style="height: ' . $box_height . 'px;">' . $picture['comment'] . '</textarea>'; 
+				$div .= '<blockquote class="PWGP_caption">' . $picture['comment'] . '</blockquote>'; 
 			}
-			$div .= '</a>
-			</div>';
+			if ( $lnktype != 'none' ) $div .= '</a>';
+			$div .= "\n
+			</div>";
 		}
 	}
 	if ($style!='') $style = ' style="'.$style.'"';
@@ -86,7 +94,7 @@ class PiwigoPress extends WP_Widget
 	function PiwigoPress(){
 		$widget_ops = array('classname' => PWGP_NAME,
 			'description' => __( "Adds a thumbnail and its link (to the picture) inside your blog sidebar.",'pwg') );
-		$control_ops = array('width' => 300, 'height' => 300);
+		$control_ops = array('width' => 780, 'height' => 300);
 		$this->WP_Widget(PWGP_NAME, PWGP_NAME, $widget_ops, $control_ops);
 	}
 	// Code generator
@@ -115,6 +123,13 @@ class PiwigoPress extends WP_Widget
 		$gallery['tags'] = (strip_tags(stripslashes($new_gallery['tags'])) == 'true') ? 'true':'false';
 		$gallery['comments'] = (strip_tags(stripslashes($new_gallery['comments'])) == 'true') ? 'true':'false';
 		$gallery['mbcategories'] = (strip_tags(stripslashes($new_gallery['mbcategories'])) == 'true') ? 'true':'false';
+		$gallery['allsel'] = (strip_tags(stripslashes($new_gallery['allsel'])) == 'true') ? 'true':'false';
+		$gallery['filter'] = (strip_tags(stripslashes($new_gallery['filter'])) == 'true') ? 'true':'false';
+		$gallery['lnktype'] = strip_tags(stripslashes($new_gallery['lnktype']));
+		if ( current_user_can('unfiltered_html') )
+			$gallery['text'] =  $new_gallery['text'];
+		else
+			$gallery['text'] = stripslashes( wp_filter_post_kses( addslashes($new_gallery['text']) ) ); // wp_filter_post_kses() expects slashed
 		return $gallery;
 	}
 	function form($gallery){
@@ -171,4 +186,18 @@ add_action('init', PWGP_NAME . '_register_plugin');
 if ( is_admin() ) {
 		@include 'piwigopress_admin.php';
 }
+function piwigopress_plugin_links($links, $file) {  
+	$plugin = plugin_basename(__FILE__);  
+  
+	if ($file == $plugin) // only for this plugin  
+		return array_merge( $links,   
+			// array( sprintf( '<a href="options-general.php?page=%s">%s</a>', $plugin, __('Settings') ) ),  
+			array( '<a href="http://wordpress.org/extend/plugins/piwigopress/faq/" target="_blank">' . __('FAQ') . '</a>' ),  
+			array( '<a href="http://wordpress.org/support/plugin/piwigopress" target="_blank">' . __('PiwigoPress Support') . '</a>' ),  
+			array( '<a href="http://piwigo.org/" target="_blank">' . __('Piwigo site') . '</a>' )  
+		);  
+	return $links;  
+}  
+  
+add_filter( 'plugin_row_meta', PWGP_NAME . '_plugin_links', 10, 2 );  
 ?>

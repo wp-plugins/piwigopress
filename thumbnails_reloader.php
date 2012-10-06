@@ -25,8 +25,8 @@
 		$thumbc = unserialize($response);
 		if ($thumbc["stat"] == 'ok') {
 			$pictures = $thumbc["result"]["images"]["_content"];
-			if ($page==0 and !isset($pictures[0]['derivatives']['square']['url'])) {
-				echo "<li>Warning: No available public picture or Piwigo release < 2.4.x</li>\n";
+			if (!isset($pictures[0]['derivatives']['square']['url'])) {
+				echo "<li>Warning: No available public picture or Piwigo release < 2.4.x</li>\n"; // How POedit that ???
 				return;
 			}
 			echo "\n\n";
@@ -44,7 +44,8 @@
 		}
 	}
 	return;
-	/* TODO */			// <a class=\"over\" href=\"javascript:void(0);\"><span>\n
+	/* TODO Seeing full pic */
+						// <a class=\"over\" href=\"javascript:void(0);\"><span>\n
 							// <img src=\"" . $picture['derivatives']['medium']['url'] . '" 
 							// title="[PiwigoPress id=' . $picture['id'] . " url='" . $url . "'] " . $picture['name'] . "\">
 							// <br>" . $picture['comment'] . "\n

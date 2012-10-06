@@ -31,7 +31,7 @@ Compiler on http://refresh-sf.com/yui/
 	});
 	$(document).ready(function() {
 		var pwgp_Gallery_Display = true;
-		$("a#PWGP_button").click(function () {
+		$("a#PWGP_button").unbind().click(function () {
 			if ( pwgp_Gallery_Display ) {
 				if ( $('#dashboard-widgets-wrap').size() == 0 ) { var where = "#poststuff"; }
 				else { var where = "#dashboard-widgets-wrap"; } // On Dashboard
@@ -49,7 +49,7 @@ Compiler on http://refresh-sf.com/yui/
 					$("#PWGP_show").hide();
 					$("#PWGP_show_stats").hide();
 				});
-				$("#PWGP_load").click(function () {
+				$("#PWGP_load").unbind().click(function () {
 					var url = $("#PWGP_finder").val(), // New URL to load
 						loaded = 5,
 						$gallery = $( "#PWGP_dragger" ),
@@ -61,17 +61,17 @@ Compiler on http://refresh-sf.com/yui/
 
 					// Ready to Load and generate
 					$gallery.load('../wp-content/plugins/piwigopress/thumbnails_reloader.php?&url='+url, function() {
-						$("#PWGP_more").show().click(function () {
+						$("#PWGP_more").show().unbind().click(function () {
 							Get_more();
 						});
-						$("#PWGP_hide").show().click(function () {
+						$("#PWGP_hide").show().unbind().click(function () {
 							var hide = Math.max(1, Math.floor( $('li:visible', $gallery).size() / 2 ));
 							for(i=0;i<hide;i++) {
 								$gallery.find('li:visible').first().hide();
 							}
 							if ($('li:visible', $gallery).size() == 0) $("#PWGP_hide").hide();
 							else {
-								$("#PWGP_show").show().click(function () {
+								$("#PWGP_show").show().unbind().click(function () {
 									$('li:hidden', $gallery).show();
 									$("#PWGP_show").hide();
 								});
@@ -130,6 +130,8 @@ Compiler on http://refresh-sf.com/yui/
 										if ( $hdesc == 1 ) $scode += " desc=1";
 										var $hclass = $('#photo_class').val();
 										if ( $hclass != '' ) $scode += " class='"+$hclass+"'";
+										var $lnktype = $('#link_type input[type=radio][name=link_type]:checked').attr('value');
+										if ( $lnktype != 'picture' ) $scode += " lnktype='"+$lnktype+"'";
 										var $scode = "\t"+$scode+"] \n\r";
 										// HTML Editor only insert statement
 										$('#content').insertAtCaret( $scode );

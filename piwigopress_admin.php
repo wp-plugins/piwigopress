@@ -13,14 +13,14 @@ if(!class_exists('PiwigoPress_Admin')){
 			add_action( 'in_admin_footer', PWGP_NAME . '_load_in_footer' ); 
 			 
 			add_action( 'save_post',  array(&$this, 'Save_options'));
-			// add_action("admin_menu", array($this, "getAdminMenu"));
 		}
 		function Save_options( $post_ID ) {
 			$PWGP_options = serialize(array(
 				'previous_url' 		=>  (string) $_POST['piwigopress_url'],
 				'thumbnail_size' 	=>  (string) $_POST['thumbnail_size'],
 				'desc_check'		=>  (bool) $_POST['desc_check'],
-				'photo_class'		=>  $_POST['photo_class'],
+				'photo_class'		=>  (string) $_POST['photo_class'],
+				'link_type'			=>  (string) $_POST['link_type'],
 			));
 			if ( strlen($_POST['piwigopress_url']) > 6 ) update_option( 'PiwigoPress_previous_options', $PWGP_options );
 		}
@@ -30,6 +30,7 @@ if(!class_exists('PiwigoPress_Admin')){
 				'thumbnail_size' 	=> 'me',
 				'desc_check'		=> (bool) true,
 				'photo_class'		=> 'img-shadow',
+				'link_type'			=> 'picture',
 			));
 			$previous_options = get_option( 'PiwigoPress_previous_options', $PWGP_options );
 			extract( unserialize($previous_options) );
@@ -47,6 +48,7 @@ if(!class_exists('PiwigoPress_Admin')){
 			$drop = __('Drop one or several thumbnails over the blue border here above !','pwg');
 			$loadreq = __('Loaded, hidden & dropped vs. Requested thumbnails: ','pwg');
 			$desc_options = __('Shortcode options','pwg');
+			$Lib_size =  __('Picture size','pwg');
 			$Lib_sq =  __('Square','pwg');
 			$Lib_th =  __('Thumbnail','pwg');
 			$Lib_xs =  __('XS - extra small','pwg');
@@ -72,6 +74,15 @@ if(!class_exists('PiwigoPress_Admin')){
 			$gendesc = __('Generate shortcodes of all dropped squared thumbnails','pwg');
 			$Reset_drop =  __('Reset dropping zone','pwg');
 			$rstdesc = __('Remove all squared thumbnails from the dropping zone','pwg');
+			if ( !in_array($link_type, array('album','none','picture'))) $link_type='picture';
+			$clnkno  = checked($link_type,'none',false);
+			$clnkalb = checked($link_type,'album',false);
+			$clnkpic = checked($link_type,'picture',false);
+			$Lib_lnktype =  __('Link type','pwg');
+			$Lib_link_no  =  __('No link','pwg');
+			$Lib_link_alb =  __('Album page','pwg');
+			$Lib_link_pic =  __('Picture page','pwg');
+			
 			echo <<<EOF
 <div id="PWGP_Gal_finder" style="display:none">
 	<label>$url
@@ -93,29 +104,66 @@ if(!class_exists('PiwigoPress_Admin')){
 				<ul class='gallery ui-helper-reset'></ul>
 			</div>
 
-			<h3> $drop </span></h3>
+			<h3><span>$drop</span></h3>
 		</div>
 	</div>
-	<fieldset id="PWGP_short_option">
-		<legend><span> $desc_options </span></legend>
-		<div class="thumbnail-select"><table id="thumbnail_size"><tr>
-				 <td><label><input type="radio" value="sq" class="post-format" name="thumbnail_size" $csq> $Lib_sq</label>	&nbsp;	
-			</td><td><label><input type="radio" value="th" class="post-format" name="thumbnail_size" $cth> $Lib_th</label>	&nbsp;	
-			</td><td><label><input type="radio" value="xs" class="post-format" name="thumbnail_size" $cxs> $Lib_xs</label>	&nbsp;	
-			</td><td><label><input type="radio" value="2s" class="post-format" name="thumbnail_size" $c2s> $Lib_2s</label>	&nbsp;	
-			</td></tr><tr><td><label><input type="radio" value="sm" class="post-format" name="thumbnail_size" $csm> $Lib_sm</label>	&nbsp;	
-			</td><td><label><input type="radio" value="me" class="post-format" name="thumbnail_size" $cme> $Lib_me</label>	&nbsp;	
-			</td><td><label><input type="radio" value="la" class="post-format" name="thumbnail_size" $cla> $Lib_la</label>	&nbsp;	
-			</td><td><label><input type="radio" value="xl" class="post-format" name="thumbnail_size" $cxl> $Lib_xl</label>	&nbsp;	
-			</td></tr><tr><td><label><input type="radio" value="xx" class="post-format" name="thumbnail_size" $cxx> $Lib_xx</label>	&nbsp;	
-			</td><td><label>$Lib_CSS_div 	&nbsp; <input id="photo_class" style="width: 200px;" name="photo_class" type="text" value="$photo_class" /></label>
-			</td><td><label><input id="desc_check" style="width: 30px;" name="desc_check" type="checkbox" $descrip_check value="true" /> &nbsp; $Lib_desc</label>
-			</td></tr></table>
-			<table><tr></tr><tr><td><a id="PWGP_Gen" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$gendesc">$Gen_insert</a>&nbsp;</br>
-			</td><td><a id="PWGP_rst" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$rstdesc">$Reset_drop</a>&nbsp;</br>
-			</td></tr></table>
-		</div>
-	</fieldset>
+	<div id="PWGP_short_option">
+		<div class="legend">$desc_options</div>
+		<table class="sel_size">
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<div class="legend">$Lib_size</div>
+					<div class="fieldset" style="text-align:right; min-width: 400px;">
+						<table id="thumbnail_size">
+							<tr>
+								<td>
+									<label>$Lib_sq &nbsp; <input type="radio" value="sq" class="post-format" name="thumbnail_size" $csq></label><br>	
+									<label>$Lib_th &nbsp; <input type="radio" value="th" class="post-format" name="thumbnail_size" $cth></label><br>	
+									<label>$Lib_xs &nbsp; <input type="radio" value="xs" class="post-format" name="thumbnail_size" $cxs></label><br>	
+									<label>$Lib_2s &nbsp; <input type="radio" value="2s" class="post-format" name="thumbnail_size" $c2s></label><br>	
+									<label>$Lib_sm &nbsp; <input type="radio" value="sm" class="post-format" name="thumbnail_size" $csm></label><br>	
+								</td>
+								<td>
+									<label>$Lib_me &nbsp; <input type="radio" value="me" class="post-format" name="thumbnail_size" $cme></label><br>	
+									<label>$Lib_la &nbsp; <input type="radio" value="la" class="post-format" name="thumbnail_size" $cla></label><br>	
+									<label>$Lib_xl &nbsp; <input type="radio" value="xl" class="post-format" name="thumbnail_size" $cxl></label><br>	
+									<label>$Lib_xx &nbsp; <input type="radio" value="xx" class="post-format" name="thumbnail_size" $cxx></label>
+								</td>
+							</tr>
+						</table>
+					</div><br>
+					<div style="text-align:right;">
+						<label>$Lib_desc  &nbsp; 
+							<input id="desc_check" style="width: 30px;" name="desc_check" type="checkbox" $descrip_check value="true" />
+						</label>
+					</div>
+				</td>
+				<td>
+					<div class="legend">$Lib_lnktype</div>
+					<div id="link_type" class="fieldset" style="text-align:right;">
+						<label>$Lib_link_no &nbsp; <input type="radio" value="none" class="post-format" name="link_type" $clnkno></label><br>	
+						<label>$Lib_link_alb &nbsp; <input type="radio" value="album" class="post-format" name="link_type" $clnkalb></label><br>	
+						<label>$Lib_link_pic &nbsp; <input type="radio" value="picture" class="post-format" name="link_type" $clnkpic></label><br>	
+					</div><br>
+					
+					<div style="text-align:right;">
+						<label>$Lib_CSS_div 	&nbsp;<br>
+							<input id="photo_class" style="width: 300px;" name="photo_class" type="text" value="$photo_class" />
+						</label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td><td>
+					<a id="PWGP_rst" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$rstdesc">$Reset_drop</a>
+				</td>
+				<td>
+					<a id="PWGP_Gen" rel="nofollow" href="javascript:void(0);" class="hidden button" title="$gendesc">$Gen_insert</a>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 EOF;
 			return $context . '<a id="PWGP_button" rel="nofollow" href="javascript:void(0);" 
@@ -127,11 +175,5 @@ EOF;
 if (!is_object($PWG_Adm)) {
 	$PWG_Adm = new PiwigoPress_Admin();
 }
-
-/*
-	function getAdminMenu() {
-		add_submenu_page("plugins.php", "PiwigoPress", "PiwigoPress", "administrator", basename(__FILE__), array(&$PWG_Adm, "getAdminContent"));
-	}
-*/
 
 ?>

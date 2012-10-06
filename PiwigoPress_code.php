@@ -30,7 +30,7 @@ if  ($gallery['format']=='portrait') $options .= '&f_max_ratio=0.99';
 if  ($gallery['format']=='landscape') $options .= '&f_min_ratio=1.01';
 
 $PiwigoPress_divclass = empty($gallery['divclass']) ? ' class="PWGP_widget"' : (' class="' . $gallery['divclass'] .' PWGP_widget"');
-$PiwigoPress_class = empty($gallery['class']) ? '' : (' class="' . $gallery['class'] .'"');
+$PiwigoPress_class = empty($gallery['class']) ? '' : $gallery['class'];
 $mbcategories = empty($gallery['mbcategories']) ? '' : $gallery['mbcategories'];
 $most_visited = empty($gallery['most_visited']) ? '' : $gallery['most_visited'];
 $best_rated = empty($gallery['best_rated']) ? '' : $gallery['best_rated'];
@@ -40,6 +40,12 @@ $recent_pics = empty($gallery['recent_pics']) ? '' : $gallery['recent_pics'];
 $calendar = empty($gallery['calendar']) ? '' : $gallery['calendar'];
 $tags = empty($gallery['tags']) ? '' : $gallery['tags'];
 $comments = empty($gallery['comments']) ? '' : $gallery['comments'];
+$lnktype = empty($gallery['lnktype']) ? 'picture' : $gallery['lnktype'];
+$category = empty($gallery['category']) ? 0 : $gallery['category'];
+if ( $category==0 and $lnktype=='album' ) $lnktype = 'picture';
+$filter = empty($gallery['filter']) ? 'true' : $gallery['filter'];
+$text = empty($gallery['text']) ? '' : $gallery['text'];
+$text = ( $filter == 'true' ) ? wpautop( $text ) : $text;
 
 echo $before_widget;
 echo $title;
@@ -65,22 +71,30 @@ if ($thumbnail) {
 				if ($thumbnail_size == 'xl') $picture['tn_url'] = $picture['derivatives']['xlarge']['url'] ;
 				if ($thumbnail_size == 'xx') $picture['tn_url'] = $picture['derivatives']['xxlarge']['url'] ;
 			}
-			echo '<div' . $PiwigoPress_divclass . '><a title="' . htmlspecialchars($picture['name']) . '" href="' 
-				. $piwigo_url . 'picture.php?/' . $picture['id'] . '" target="_blank"><img '
-				. $PiwigoPress_class . ' src="' . $picture['tn_url'] . '" alt=""/>';
+			echo '<div' . $PiwigoPress_divclass . '>';
+			if ( $lnktype=='picture' ) {
+				echo '<a title="' . htmlspecialchars($picture['name']) . '" href="' 
+					. $piwigo_url . 'picture.php?/' . $picture['id'] . '" target="_blank"><img class="PWGP_thumb '
+					. $PiwigoPress_class . '" src="' . $picture['tn_url'] . '" alt=""/>';
+			}
+			if ( $lnktype=='album' ) {
+				echo '<a title="' . htmlspecialchars($picture['name']) . '" href="' 
+					. $piwigo_url . 'index.php?/category/' . $category . '" target="_blank"><img class="PWGP_thumb '
+					. $PiwigoPress_class . '" src="' . $picture['tn_url'] . '" alt=""/>';
+				$lnktype='picture';
+			}
 				
 			if (isset( $picture['comment'] )) { 
 				$picture['comment'] = stripslashes(htmlspecialchars(strip_tags($picture['comment'])));
-				$box_height = (24 * (int)(strlen($picture['comment'])/45))+32; 
-				// estimated height of the box in case of description to avoid some vertical scrollbar inside the textarea
 				if (trim($picture['comment']) != '')
-					echo '<textarea style="height: ' . $box_height . 'px;">' . $picture['comment'] . '</textarea>'; 
+					echo '<blockquote class="PWGP_caption">' . $picture['comment'] . '</blockquote>'; 
 			}
-			echo '</a>
-			<a class="img_selector" name="' . $picture['element_url'] . '" rel="nofollow" href="javascript:void(0);" title="' 
+			if ( $lnktype!='none' ) echo '</a>';
+			echo '<a class="img_selector" name="' . $picture['element_url'] . '" rel="nofollow" href="javascript:void(0);" title="' 
 			. $picture['width'] .'x' . $picture['height'] .'"></a>
 			</div>';
-		} 
+		}
+		echo '<div class="textwidget">' . $text . '</div>';
 	}
 }
 

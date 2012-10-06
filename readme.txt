@@ -1,10 +1,10 @@
 === PiwigoPress ===
 Contributors: vpiwigo
 Donate link: http://www.vdigital.org/sharing/
-Tags: galleries, pictures, randomize, shortcode, gallery, integration, photos, drag, drop
+Tags: galleries, pictures, randomize, shortcode, gallery, integration, photos, drag, drop, widget, media, piwigo
 Requires at least: 2.8.4
 Tested up to: 3.4.2
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,7 +26,7 @@ On the other hand, by using **a shortcode** [PiwigoPress ...] you can add any pu
 Here again you should try even though you don't have yet your Piwigo Gallery.
 Have a look with [PiwigoPress id=72 url='http://piwigo.org/demo'] in a post or page.
 
-Above all, PiwigoPress provide a shortcode **generator**. 
+Above all, PiwigoPress provides a shortcode **generator**. 
 Each time you add some pictures to your gallery you will be able to add a post related to your last uploaded photos.
 So, your friends and family are going to like your photos and Search Engines are going reference your gallery with the refbacks provided by PiwigoPress.
 
@@ -39,16 +39,18 @@ When ready, if you are a bit lost, just try Photos add page sheets (Web form, Ap
 in your Piwigo gallery administration page.
 
 PiwigoPress is a Plugin/Widget signed and supported by a Former Piwigo Team member.
-[demonstration gallery]: http://piwigo.org/demo  "The demonstration gallery"
+[demonstration gallery]: http://piwigo.org/demo/  "The demonstration gallery"
 [download page]: http://piwigo.org/basics/downloads  "Piwigo download page"
 
 == Installation ==
 
-How to install PiwigoPress and get it working.
+How to install nanually PiwigoPress and get it working ? (automatic installation is working perfectly).
 
 1. Upload `PiwigoPress` complete folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Access to Widgets, draw PiwigoPress to the sidebar you want
+3. Access to Widgets, draw PiwigoPress to the sidebar you want or create/update a post/page and click on the PP icon above the editor area.
+4. Don't forget that any gallery URL is the folder address (ending with a slash ("/") where is ws.php is available.
+5. The selected gallery Webservices have to be opened, and some public pictures have to be available (and unlocked). 
 
 Explanation of Plugin Widget data fields.
 
@@ -87,14 +89,15 @@ Explanation of Plugin Shortcode attributes.
 (me)M - medium, (la)L - large, (xl)XL - extra large,(xx)XXL - huge : see you Piwigo configuration [Photo sizes] admin page
 * class : (optional) additional CSS class selectors at DIV tag level (e.g. class="img-drop-cap img-shadow left")
 * style: (optional) any additional CSS rules at DIV tag level (e.g. style="background-color: rgba(16, 64, 192, 0.05);")
-* desc: (0,1) (0 by default) add the photo description in a textarea from description field 
+* desc: (0,1) (0 by default) add the photo description in a blockquote from description field 
 in the Edit photo [Properties] admin page if there is a filled description there
+* lnktype: (string, default lnktype='picture') 'none' : no link, 'picture' : link to picture.php, 'album' : link to index.php/category
 
 "style" is not used by the Shortcode generator
 
 == Frequently Asked Questions ==
 
-= How can I get any thumbnails ? =
+= Widget (only): How can I get any thumbnails ? =
 * Just have the URL without the /index.php? on the end.
 * Just have recent pictures in the gallery.
 * Change Since X months (0=all) from 12 to 0
@@ -109,6 +112,19 @@ and there select: Options > Photo sizes > Multiple size > show details
 * maybe you should try to upgrade your gallery to Piwigo 2.4.x or above.
 * See creenshots
 
+= Widget (Only): With Link type Album which album would be selected ? =
+If Album = 0 the link will remain to the picture page.
+Otherwise, if Number of pictures > 0 the firt picture will link the Album page, next pictures will refer to their picture page.
+
+= Shortcode (Only): With Link type Album which album would be selected ? =
+Picture is going to have a link to its most recent Album page (Upcoming releases should cover other cases).
+
+= Shortcode generator (only): Why did I get a warning message ? =
+* Message is "No available public picture or Piwigo release < 2.4.x" (Won't be translated)
+* Disconnect you from the gallery and try to access to any Albums, maybe all pictures are locked or private
+* Second possible cause: Old piwigo release. Only recent releases (2.4 and above) provide several picture sizes.
+* Backward compatibility below Piwigo 2.4 is limited to Widget sidebar functions
+
 == Screenshots ==
 
 1. Widget parameters for the demo gallery 
@@ -122,6 +138,14 @@ and there select: Options > Photo sizes > Multiple size > show details
 9. Expected result on your page or post of your Wordpress blog. 
 
 == Changelog ==
+
+= 2.22 =
+* **New shortcode parameter** lnktype = 'picture', 'none', or 'album' (most recent album id) : indicates the link type of the shortcoded picture
+* Small bugs (functional defects) within Shortcode generator have been corrected 
+* Shortcode generator generates lnktype parameter
+* **New widget parameter** Link type (Differ from lnktype here above) "album" link the first picture to the selected album id
+* **New Caption widget parameter** to have the caption directly with the displayed and selected pictures.
+* Sidebar widget has been totally rewritten  
 
 = 2.21 =
 * Minor issues solved in drag & drop.
@@ -141,7 +165,7 @@ If you don't have your own up-to-date Piwigo gallery, just try it with Piwigo de
 = 2.00 = 
 * Support of WordPress from 2.8.0 to 3.4.1 (and probably above)
 * Support of Piwigo 2.4.x (and probably above)
-* Support of Piwigo 2.0.x - 2.3.x assumed
+* Support of Piwigo 2.0.x - 2.3.x assumed 
 * cURL access support (3rd way to solve webservice call issues)
 * CSS DIV class: img-shadow and/or img-show-desc are now provided
 * Orientation filtering
@@ -175,4 +199,4 @@ Performances
 Swiftly transform your blog in a photoblog. 
 
 = 2.00 = 
-Previous release didn't support Piwigo recent release (if you upgrade your Piwigo Gallery to 2.4.x or above, PiwigoPress previous release will fail).
+Previous PiwigoPress releases didn't support the most Piwigo recent releases (if you upgrade your Piwigo Gallery to 2.4.x or above, PiwigoPress 1.04 and older releases will fail).
