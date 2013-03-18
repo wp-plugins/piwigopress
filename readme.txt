@@ -3,8 +3,8 @@ Contributors: vpiwigo
 Donate link: http://www.vdigital.org/sharing/
 Tags: galleries, pictures, randomize, shortcode, gallery, integration, photos, drag, drop, widget, media, piwigo
 Requires at least: 2.8.4
-Tested up to: 3.4.2
-Stable tag: 2.2.2
+Tested up to: 3.5.1
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -138,6 +138,11 @@ Picture is going to have a link to its most recent Album page (Upcoming releases
 9. Expected result on your page or post of your Wordpress blog. 
 
 == Changelog ==
+
+= 2.23 =
+* WordPress 3.5.1 support  
+* Bug: WordPress corrupted RSS feeds ( http://wordpress.org/support/topic/rss-feed-100?replies=4 ) 
+* Support of Piwigo 2.4.x and 2.5.x (and probably above)
 
 = 2.22 =
 * **New shortcode parameter** lnktype = 'picture', 'none', or 'album' (most recent album id) : indicates the link type of the shortcoded picture
