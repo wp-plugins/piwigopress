@@ -1,0 +1,3 @@
+- export the created IMG also as // instead of http(s)://
+- allow for a mode to include the actual html code instead of a short
+  code - this is necessary for open graph photo scrambler
