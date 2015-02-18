@@ -3,13 +3,13 @@
 Plugin Name: PiwigoPress
 Plugin URI: http://wordpress.org/extend/plugins/piwigopress/
 Description: PiwigoPress from any open API Piwigo gallery, swiftly includes your photos in Posts/Pages and/or add randomized thumbnails and menus in your sidebar.
-Version: 2.25
-Author: Norbert Preining (previously vpiwigo)
+Version: 2.26
+Author: Norbert Preining
 Author URI: http://www.preining.info/
 */
 if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo */
 /*  Copyright 2009-2012  VDigital  (email : vpiwigo[at]gmail[dot]com)
-    Copyright 2014       Norbert Preining <norbert@preining.info>
+    Copyright 2014-2015  Norbert Preining <norbert@preining.info>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@ if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo 
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if (!defined('PWGP_NAME')) define('PWGP_NAME','PiwigoPress');
-if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.2.5');
+if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.2.6');
 
-load_plugin_textdomain('pwg', 'wp-content/plugins/piwigopress', 'piwigopress' );
+load_plugin_textdomain('pwg', false, dirname (plugin_basename( __FILE__ ) ) . '/languages/');
 add_shortcode('PiwigoPress', 'PiwigoPress_photoblog');
 
 function PiwigoPress_photoblog($parm) {
@@ -39,7 +39,8 @@ function PiwigoPress_photoblog($parm) {
 				'desc' => 0, 	// Generate picture description
 				'class' => '',	// Specific class
 				'style' => '',	// Specific style
-				'lnktype' => 'picture' // Default generated link 
+				'lnktype' => 'picture', // Default generated link 
+				'opntype' => '_blank' // Default open type
 		);
 	$parm = array_change_key_case( $parm );
 	extract( shortcode_atts( $default, $parm ) );
@@ -79,13 +80,16 @@ function PiwigoPress_photoblog($parm) {
 			$targetlink = $url . 'picture.php?/' . $picture['id'];
 			if ( $lnktype == 'albumpicture' ) $targetlink .= $catlink ;
 			$atag = '<a title="' . htmlspecialchars($picture['name']) . '" href="' 
-				. $targetlink . '" target="_blank">';
+				. $targetlink . '" target="' . $opntype . '">';
 			if ( $lnktype == 'none' ) $atag = '';
 			if ( $lnktype == 'album' ) {
 				$atag = '<a title="' . htmlspecialchars($cats[0]['name']) . '" href="' 
-				. $url . 'index.php?' . $catlink . '" target="_blank">';
+				. $url . 'index.php?' . $catlink . '" target="' . $opntype . '">';
 			}
-			$div = '<div class="PWGP_shortcode ' . $class . '">' . $atag. '<img  class="PWGP_photo" src="' . $picture['tn_url'] . '" alt=""/>';
+			// value of alt tag: title + comment (if present)
+			$alt = htmlspecialchars($picture['name']);
+			if (isset($picture['comment'])) $alt .= ( ' -- ' . htmlspecialchars($picture['comment']) );
+			$div = '<div class="PWGP_shortcode ' . $class . '">' . $atag. '<img  class="PWGP_photo" src="' . $picture['tn_url'] . '" alt="' . $alt . '"/>';
 			if (isset( $picture['comment'] ) and $desc) { 
 				$picture['comment'] = stripslashes(htmlspecialchars(strip_tags($picture['comment'])));
 				$div .= '<blockquote class="PWGP_caption">' . $picture['comment'] . '</blockquote>'; 
@@ -138,6 +142,7 @@ class PiwigoPress extends WP_Widget
 		$gallery['allsel'] = (strip_tags(stripslashes($new_gallery['allsel'])) == 'true') ? 'true':'false';
 		$gallery['filter'] = (strip_tags(stripslashes($new_gallery['filter'])) == 'true') ? 'true':'false';
 		$gallery['lnktype'] = strip_tags(stripslashes($new_gallery['lnktype']));
+		$gallery['opntype'] = strip_tags(stripslashes($new_gallery['opntype']));
 		if ( current_user_can('unfiltered_html') )
 			$gallery['text'] =  $new_gallery['text'];
 		else
