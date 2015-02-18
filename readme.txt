@@ -4,7 +4,7 @@ Donate link: http://www.vdigital.org/sharing/
 Tags: galleries, pictures, randomize, shortcode, gallery, integration, photos, drag, drop, widget, media, piwigo
 Requires at least: 2.8.4
 Tested up to: 4.1.0
-Stable tag: 2.25
+Stable tag: 2.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,7 @@ Explanation of Plugin Shortcode attributes.
 * desc: (0,1) (0 by default) add the photo description in a blockquote from description field 
 in the Edit photo [Properties] admin page if there is a filled description there
 * lnktype: (string, default lnktype='picture') 'none' : no link, 'picture' : link to picture.php, 'album' : link to index.php/category, 'albumpicture' : link to picture.php within the album
+* opntype: (string, default opntype='_blank') '_blank': open link in new window or tab, '_self': open link in same window/tab
 
 "style" is not used by the Shortcode generator
 
@@ -149,6 +150,11 @@ Picture is going to have a link to its most recent Album page (Upcoming releases
 9. Expected result on your page or post of your Wordpress blog. 
 
 == Changelog ==
+
+= 2.26 =
+* new parameter for widget and shortcode: opntype: '_blank' (open in new window/tab) or '_self' (open in same) (Issue 10)
+* set alt parameter of images to 'name' (plus 'comment', if available) if the piwigo image (Issue 8)
+* make widget configuration background white instead of transparent for readability
 
 = 2.25 =
 * fix some peculiarities with the category list download
