@@ -1,10 +1,9 @@
 === PiwigoPress ===
-Contributors: vpiwigo, norbusan
-Donate link: http://www.vdigital.org/sharing/
+Contributors: norbusan, vpiwigo
 Tags: galleries, pictures, randomize, shortcode, gallery, integration, photos, drag, drop, widget, media, piwigo
 Requires at least: 2.8.4
-Tested up to: 4.1.0
-Stable tag: 2.26
+Tested up to: 4.1.1
+Stable tag: 2.27
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,16 +65,19 @@ installation is working perfectly).
 Explanation of Plugin Widget data fields.
 
 * Title: To use in the sidebar
-* Square, Thumbnail, XXS - tiny,... : see you Piwigo configuration [Photo sizes] admin page
-* Orientation criteria : Any, portrait, landscape
 * Local directory (if local): Piwigo installation directory (on the same website)
 * (or) External gallery URL: URL to the gallery (if not local)
+* Square, Thumbnail, XXS - tiny,... : see you Piwigo configuration [Photo sizes] admin page
+* Orientation criteria : Any, portrait, landscape
+* Where to open photos on clicks
+* Link type
 * Number of pictures (0=none): Number of thumbnails to get
 
 Optional parameters
 
 * Category id (0=all): Pictures from a specific Piwigo category or from all
 * Since X months (0=all): Age of posted picture
+* Pre and post-code: raw html code that is added just before the images
 * CSS DIV class: For your blog design
 * CSS IMG class: For your blog design
 * Categories menu: Includes all links related to Piwigo categories
@@ -122,7 +124,7 @@ and there select: Options > Photo sizes > Multiple size > show details
 
 = How can I get squared thumbnails ? =
 * maybe you should try to upgrade your gallery to Piwigo 2.4.x or above.
-* See creenshots
+* See screenshots
 
 = Widget (Only): With Link type Album which album would be selected ? =
 If Album = 0 the link will remain to the picture page.
@@ -137,6 +139,27 @@ Picture is going to have a link to its most recent Album page (Upcoming releases
 * Second possible cause: Old piwigo release. Only recent releases (2.4 and above) provide several picture sizes.
 * Backward compatibility below Piwigo 2.4 is limited to Widget sidebar functions
 
+= How do I arrange images horizontally? =
+
+Since images are generated in the following way:
+`````
+<div id="..." class="PiwigoPress_photoblog">
+   <div class="PWGP_shortcode <something>">
+      ...img...
+    </div>
+</div>
+`````
+horizontal alignment can easily be achieved by adding the following code
+to either custom css or child theme css:
+`````
+.PiwigoPress_photoblog {
+  display:inline-block;
+}
+.PWGP_shortcode {
+  display:inline-block;
+}
+`````
+
 == Screenshots ==
 
 1. Widget parameters for the demo gallery 
@@ -150,6 +173,9 @@ Picture is going to have a link to its most recent Album page (Upcoming releases
 9. Expected result on your page or post of your Wordpress blog. 
 
 == Changelog ==
+
+= 2.27 =
+* widget configuration now allows adding html code just before and after the included photos, but before the divs. This requires the 'unfiltered_html' permission for the user editing the widget.
 
 = 2.26 =
 * new parameter for widget and shortcode: opntype: '_blank' (open in new window/tab) or '_self' (open in same) (Issue 10)
