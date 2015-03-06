@@ -3,7 +3,7 @@
 Plugin Name: PiwigoPress
 Plugin URI: http://wordpress.org/extend/plugins/piwigopress/
 Description: PiwigoPress from any open API Piwigo gallery, swiftly includes your photos in Posts/Pages and/or add randomized thumbnails and menus in your sidebar.
-Version: 2.26
+Version: 2.27
 Author: Norbert Preining
 Author URI: http://www.preining.info/
 */
@@ -143,10 +143,16 @@ class PiwigoPress extends WP_Widget
 		$gallery['filter'] = (strip_tags(stripslashes($new_gallery['filter'])) == 'true') ? 'true':'false';
 		$gallery['lnktype'] = strip_tags(stripslashes($new_gallery['lnktype']));
 		$gallery['opntype'] = strip_tags(stripslashes($new_gallery['opntype']));
-		if ( current_user_can('unfiltered_html') )
+		if ( current_user_can('unfiltered_html') ) {
 			$gallery['text'] =  $new_gallery['text'];
-		else
-			$gallery['text'] = stripslashes( wp_filter_post_kses( addslashes($new_gallery['text']) ) ); // wp_filter_post_kses() expects slashed
+			$gallery['precode'] =  $new_gallery['precode'];
+			$gallery['postcode'] =  $new_gallery['postcode'];
+		} else {
+			// wp_filter_post_kses() expects slashed
+			$gallery['text'] = stripslashes( wp_filter_post_kses( addslashes($new_gallery['text']) ) );
+			$gallery['precode'] = stripslashes( wp_filter_post_kses( addslashes($new_gallery['precode']) ) );
+			$gallery['postcode'] = stripslashes( wp_filter_post_kses( addslashes($new_gallery['postcode']) ) );
+		}
 		return $gallery;
 	}
 	function form($gallery){
