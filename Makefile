@@ -23,3 +23,18 @@ update-pot:
 		--output=languages/pwg.pot			\
 		*.php
 
+update-po:
+	for i in languages/*.po ; do \
+		msgmerge -vU $$i languages/pwg.pot ; \
+		msgfmt -v -o languages/`basename $$i .po`.mo $$i ; \
+	done
+
+# the following checks whether all versions agree!
+version-check:
+	@NV1=`grep "^Stable tag:" readme.txt | awk -F' ' '{print $$NF}'` ;	\
+	NV2=`grep "^Version:" piwigopress.php | awk -F' ' '{print $$NF}'` ; 		\
+	NV3=`grep 'define(.PWGP_VERSION' piwigopress.php | sed -e "s/^.*PWGP_VERSION'\s*,\s*'//" -e "s/'.*$$//" -e 's/^\([0-9][0-9]*\.[0-9][0-9]*\)\./\1/'` ;	\
+	NV4=`grep 'define(.PWGP_VERSION' piwigopress_admin.php | sed -e "s/^.*PWGP_VERSION'\s*,\s*'//" -e "s/'.*$$//" -e 's/^\([0-9][0-9]*\.[0-9][0-9]*\)\./\1/'` ; 	\
+	echo "V1 = $$NV1 (readme.txt)\nV2 = $$NV2 (piwigopress.php header)\nV3 = $$NV3 (piwigopress.php variable)\nV4 = $$NV4 (piwigopress_admin.php variable)"; \
+	if [ "$$NV1" != "$$NV2" -o "$$NV1" != "$$NV3" -o "$$NV1" != "$$NV4" ] ; then false ; else true ; fi
+	
