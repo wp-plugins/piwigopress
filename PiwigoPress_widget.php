@@ -43,6 +43,8 @@ $tags = empty($gallery['tags']) ? '' : $gallery['tags'];
 $comments = empty($gallery['comments']) ? '' : $gallery['comments'];
 $lnktype = empty($gallery['lnktype']) ? 'picture' : $gallery['lnktype'];
 $opntype = empty($gallery['opntype']) ? '_blank' : $gallery['opntype'];
+$ordertype = empty($gallery['ordertype']) ? 'random' : $gallery['ordertype'];
+$orderasc = empty($gallery['orderasc']) ? '' : $gallery['orderasc'];
 $category = empty($gallery['category']) ? 0 : $gallery['category'];
 if ( $category==0 and ($lnktype=='album' || $lnktype=='albumpicture')) $lnktype = 'picture';
 $filter = empty($gallery['filter']) ? 'true' : $gallery['filter'];
@@ -56,9 +58,12 @@ echo $title;
 
 if ($thumbnail) {
 	// Make the Piwigo link
-	$response = pwg_get_contents( $piwigo_url 
-			. 'ws.php?method=pwg.categories.getImages&format=php'
-			. $options . '&recursive=true&order=random&f_with_thumbnail=true');
+	$callstr = $piwigo_url . 'ws.php?method=pwg.categories.getImages&format=php' . $options . '&recursive=true&order=' . $ordertype;
+	if ($orderasc == 'false') {
+		$callstr .= '%20DESC';
+	}
+	//var_dump($callstr);
+	$response = pwg_get_contents( $callstr );
 	if (!is_wp_error($response)) {
 		$thumbc = unserialize($response['body']);
 		/* fix from http://wordpress.org/support/topic/piwigo-260-and-piwigopress-223
@@ -67,9 +72,18 @@ if ($thumbnail) {
 		*/
 		if (!empty($precode)) { echo $precode; }
 		$pictures = $thumbc["result"]["images"];
+		// var_dump($pictures);
 		foreach ($pictures as $picture) {
 			if (isset($picture['derivatives']['square']['url'])) {
-				$picture['tn_url'] = $picture['derivatives']['thumb']['url'] ;
+				// set the default link target
+				// since we are not sure whether there is a thumbnail (we removed f_with_thumbnail
+				// in the API call), we set it either to the thumbnail or square, the later one
+				// existing definitely
+				if (isset($picture['derivatives']['thumb']['url'])) {
+					$picture['tn_url'] = $picture['derivatives']['thumb']['url'] ;
+				} else {
+					$picture['tn_url'] = $picture['derivatives']['square']['url'] ;
+				}
 				if ($thumbnail_size == 'sq') $picture['tn_url'] = $picture['derivatives']['square']['url'] ;
 				if ($thumbnail_size == 'sm') $picture['tn_url'] = $picture['derivatives']['small']['url'] ;
 				if ($thumbnail_size == 'xs') $picture['tn_url'] = $picture['derivatives']['xsmall']['url'] ;
@@ -79,6 +93,8 @@ if ($thumbnail) {
 				if ($thumbnail_size == 'xl') $picture['tn_url'] = $picture['derivatives']['xlarge']['url'] ;
 				if ($thumbnail_size == 'xx') $picture['tn_url'] = $picture['derivatives']['xxlarge']['url'] ;
 			}
+			//
+			//var_dump($picture);
 			// value of alt tag: title + comment (if present)
 			$alt = htmlspecialchars($picture['name']);
 			if (isset($picture['comment'])) $alt .= ( ' -- ' . htmlspecialchars($picture['comment']) );
@@ -107,9 +123,13 @@ if ($thumbnail) {
 					echo '<blockquote class="PWGP_caption">' . $picture['comment'] . '</blockquote>'; 
 			}
 			if ( $lnktype!='none' ) echo '</a>';
-			echo '<a class="img_selector" name="' . $picture['element_url'] . '" rel="nofollow" href="javascript:void(0);" title="' 
-			. $picture['width'] .'x' . $picture['height'] .'"></a>
-			</div>';
+			// if quering a remote piwigo, the "element_url" is not set
+			// TODO ask why this is the case
+			if (isset($picture['element_url'])) {
+				echo '<a class="img_selector" name="' . $picture['element_url'] . '" rel="nofollow" href="javascript:void(0);" title="' 
+				. $picture['width'] .'x' . $picture['height'] .'"></a>';
+			}
+			echo '</div>';
 		}
 		if (!empty($postcode)) { echo $postcode; }
 		echo '<div class="textwidget">' . $text . '</div>';

@@ -3,7 +3,7 @@
 Plugin Name: PiwigoPress
 Plugin URI: http://wordpress.org/extend/plugins/piwigopress/
 Description: PiwigoPress from any open API Piwigo gallery, swiftly includes your photos in Posts/Pages and/or add randomized thumbnails and menus in your sidebar.
-Version: 2.30
+Version: 2.31
 Author: Norbert Preining
 Author URI: http://www.preining.info/
 */
@@ -27,7 +27,7 @@ if (defined('PHPWG_ROOT_PATH')) return; /* Avoid Automatic install under Piwigo 
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 if (!defined('PWGP_NAME')) define('PWGP_NAME','PiwigoPress');
-if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.3.0');
+if (!defined('PWGP_VERSION')) define('PWGP_VERSION','2.3.1');
 
 load_plugin_textdomain('pwg', false, dirname (plugin_basename( __FILE__ ) ) . '/languages/');
 add_shortcode('PiwigoPress', 'PiwigoPress_photoblog');
@@ -94,7 +94,9 @@ function PiwigoPress_onephoto($parm) {
         'class' => '',  // Specific class
         'style' => '',  // Specific style
         'lnktype' => 'picture', // Default generated link 
-        'opntype' => '_blank' // Default open type
+        'opntype' => '_blank', // Default open type
+        'ordertype' => 'random', // Default sort order
+        'orderasc' => 0, // Default sort order
     );
   $parm = array_change_key_case( $parm );
   extract( shortcode_atts( $default, $parm ) );
@@ -181,7 +183,9 @@ class PiwigoPress extends WP_Widget
     $widget_ops = array('classname' => PWGP_NAME,
       'description' => __( "Adds a thumbnail and its link (to the picture) inside your blog sidebar.",'pwg') );
     $control_ops = array('width' => 780, 'height' => 300);
-    $this->WP_Widget(PWGP_NAME, PWGP_NAME, $widget_ops, $control_ops);
+    WP_Widget::__construct(PWGP_NAME, PWGP_NAME, $widget_ops, $control_ops);
+    // deprecated in 4.3.0
+    // $this->WP_Widget(PWGP_NAME, PWGP_NAME, $widget_ops, $control_ops);
   }
   // Code generator
   function widget($args, $gallery){
@@ -213,6 +217,8 @@ class PiwigoPress extends WP_Widget
     $gallery['filter'] = (strip_tags(stripslashes($new_gallery['filter'])) == 'true') ? 'true':'false';
     $gallery['lnktype'] = strip_tags(stripslashes($new_gallery['lnktype']));
     $gallery['opntype'] = strip_tags(stripslashes($new_gallery['opntype']));
+    $gallery['ordertype'] = strip_tags(stripslashes($new_gallery['ordertype']));
+    $gallery['orderasc'] = (strip_tags(stripslashes($new_gallery['orderasc'])) == 'true') ? 'true':'false';
     if ( current_user_can('unfiltered_html') ) {
       $gallery['text'] =  $new_gallery['text'];
       $gallery['precode'] =  $new_gallery['precode'];
